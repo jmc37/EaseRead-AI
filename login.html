@@ -5,21 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log In</title>
     <link rel="stylesheet" href="index.css" />
+    <script src="login.js"></script>
   </head>
   <body>
-    <form action="action_page.php" method="post">
+    <form onsubmit="login(event)" method="post">
       <div class="imgcontainer">
         <img src="img_avatar2.png" alt="Avatar" class="avatar" />
       </div>
 
       <div class="container">
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required />
+        <input
+          type="text"
+          placeholder="Enter Username"
+          id="uname"
+          name="uname"
+          required
+        />
 
         <label for="psw"><b>Password</b></label>
         <input
           type="password"
           placeholder="Enter Password"
+          id="password"
           name="psw"
           required
         />
