@@ -43,3 +43,34 @@ function login(event) {
       // Handle login error, e.g., show an error message
     });
 }
+function checkAdminAccess() {
+  const jwtToken = localStorage.getItem("access_token");
+
+  // Check if the token is present
+  if (jwtToken) {
+    // Send a request to your server to validate the token
+    fetch("https://easeread-ai-backend.onrender.com/admin-dashboard", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // If the server response indicates admin access, display the button
+        if (data.is_admin) {
+          document.getElementById("adminButton").style.display = "block";
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking admin access:", error);
+      });
+  }
+}
+window.onload = checkAdminAccess();
