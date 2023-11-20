@@ -7,7 +7,13 @@
     <script src="login.js"></script>
   </head>
   <body>
-    <button id="adminButton" style="display: none">Admin Dashboard</button>
+    <button
+      id="adminButton"
+      onclick="redirectToAdminDashboard()"
+      style="display: none"
+    >
+      Admin Dashboard
+    </button>
     <h1>Document Question Answering</h1>
     <form action="/predict" method="post" enctype="multipart/form-data">
       <label for="file">Upload Document Image:</label>

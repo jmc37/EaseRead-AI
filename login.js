@@ -1,7 +1,7 @@
 function login(event) {
   event.preventDefault();
 
-  let username = document.getElementById("uname").value;
+  let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
 
   let data = {
@@ -72,5 +72,12 @@ function checkAdminAccess() {
         console.error("Error checking admin access:", error);
       });
   }
+}
+function redirectToAdminDashboard() {
+  // Redirect to admindashboard.html
+  window.location.href = "admindashboard.html";
+}
+function redirectToRegister() {
+  window.location.href = "registration.html"; // Update with the actual registration page URL
 }
 window.onload = checkAdminAccess();
