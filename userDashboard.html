@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document QA App</title>
+    <script src="upload.js"></script>
 </head>
 <body>
     <h1>Document Question Answering</h1>
-    <form action="/predict" method="post" enctype="multipart/form-data">
+    <form onsubmit="submitForm(event)" method="post" enctype="multipart/form-data">
         <label for="file">Upload Document Image:</label>
-        <input type="file" name="file" accept=".png, .jpg, .jpeg" required>
+        <input type="file" name="file" id="file" accept=".png, .jpg, .jpeg" required>
         <br>
         <label for="question">Enter Your Question:</label>
-        <input type="text" name="question" required>
+        <input type="text" name="question" id="question" required>
         <br>
         <button type="submit">Get Answer</button>
     </form>
@@ -20,7 +21,6 @@
     {% if result %}
     <h2>Answer:</h2>
     <p>{{ result }}</p>
-    <img src="{{ img_str }}" alt="Uploaded Image">
     {% endif %}
 </body>
 </html>
