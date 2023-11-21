@@ -119,7 +119,7 @@ function deleteUser(userId) {
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to delete the user
-    fetch(`https://easeread-ai-backend.onrender.com/${userId}/delete`, {
+    fetch(`https://easeread-ai-backend.onrender.com/user/${userId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
