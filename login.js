@@ -1,7 +1,8 @@
 function login(event) {
+  console.log("inside")
   event.preventDefault();
 
-  let username = document.getElementById("username").value;
+  let username = document.getElementById("uname").value;
   let password = document.getElementById("password").value;
 
   let data = {
@@ -33,7 +34,7 @@ function login(event) {
         localStorage.setItem("access_token", responseData.access_token);
 
         // Redirect to userdashboard.html
-        window.location.href = "https://easeread-frontend.onrender.com/userDashboard";
+        window.location.href = "https://easeread-frontend.onrender.com/userDashboard.html";
       } else {
         console.error("Token not received in the server response");
       }
@@ -80,4 +81,10 @@ function redirectToAdminDashboard() {
 function redirectToRegister() {
   window.location.href = "https://easeread-frontend.onrender.com/userDashboard/registration.html"; // Update with the actual registration page URL
 }
-window.onload = checkAdminAccess();
+function init() {
+  checkAdminAccess();
+}
+
+window.onload = init;
+
+
