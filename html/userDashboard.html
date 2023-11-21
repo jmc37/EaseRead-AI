@@ -13,27 +13,22 @@
 </head>
 
 <body>
-  <button id="adminButton" style="display:none;" onclick="redirectToAdminDashboard()">Admin Dashboard</button>
-  <button onclick="logout()" style="display: block;">Logout</button>
-  <div class="tv">
-    <div class="screen">
-      <h1>Document Question Answering</h1>
-      <form onsubmit="submitForm(event)" method="post" enctype="multipart/form-data">
-        <label for="question">Enter Your Question:</label>
-        <input type="text" name="question" id="question" required>
-        <br>
-        <div>
-          <button type="submit">Get Answer</button>
-        </div>
-
-      </form>
+  <h1 style="color: #f94144;">Document Question Answering</h1>
+  <form onsubmit="submitForm(event)" method="post" enctype="multipart/form-data">
+    <label for="question" style="color: #f3722c;">Enter Your Question:</label>
+    <input type="text" name="question" id="question" required style="border-color: #f8961e;">
+    <br>
+    <div>
+      <button type="submit" style="background-color: #f9c74f;">Get Answer</button>
     </div>
+  </form>
+  <button id="adminButton" style="display:none; background-color: #90be6d;" onclick="redirectToAdminDashboard()">Admin Dashboard</button>
+  <button onclick="logout()" style="display: block; background-color: #577590;">Logout</button>
 
-  </div>
   <br>
 
-  <div id="resultContainer">
-    <h2>Answer:</h2>
+  <div id="resultContainer" style="border-color: #f3722c;">
+    <h2 style="color: #f8961e;">Answer:</h2>
     <div id="result"></div>
   </div>
 
