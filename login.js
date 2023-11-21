@@ -33,7 +33,7 @@ function login(event) {
         localStorage.setItem("access_token", responseData.access_token);
 
         // Redirect to userdashboard.html
-        window.location.href = "https://easeread-frontend.onrender.com/userDashboard";
+        window.location.href = "https://easeread-frontend.onrender.com/userDashboard.html";
       } else {
         console.error("Token not received in the server response");
       }
