@@ -43,4 +43,5 @@ button {
   background: linear-gradient(145deg, #4e6982, #5d7d9a);
   box-shadow: 20px 20px 20px #4a637a, -20px -20px 20px #6487a6;
   padding: 10px;
+  margin: 0 100px;
 }

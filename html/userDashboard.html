@@ -13,7 +13,8 @@
 </head>
 
 <body>
-  <h1 style="color: #f94144;">Document Question Answering</h1>
+  <div>
+    <h1 style="color: #f94144;">Document Question Answering</h1>
   <form onsubmit="submitForm(event)" method="post" enctype="multipart/form-data">
     <label for="question" style="color: #f3722c;">Enter Your Question:</label>
     <input type="text" name="question" id="question" required style="border-color: #f8961e;">
@@ -31,6 +32,9 @@
     <h2 style="color: #f8961e;">Answer:</h2>
     <div id="result"></div>
   </div>
+
+  </div>
+  
 
   <script>
     window.addEventListener('load', function () {
