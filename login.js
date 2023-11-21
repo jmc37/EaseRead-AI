@@ -80,4 +80,10 @@ function redirectToAdminDashboard() {
 function redirectToRegister() {
   window.location.href = "https://easeread-frontend.onrender.com/userDashboard/registration.html"; // Update with the actual registration page URL
 }
-window.onload = checkAdminAccess();
+function init() {
+  checkAdminAccess();
+}
+
+window.onload = init;
+
+
