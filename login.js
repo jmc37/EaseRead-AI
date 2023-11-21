@@ -75,9 +75,9 @@ function checkAdminAccess() {
 }
 function redirectToAdminDashboard() {
   // Redirect to admindashboard.html
-  window.location.href = "admindashboard.html";
+  window.location.href = "./admindashboard.html";
 }
 function redirectToRegister() {
-  window.location.href = "registration.html"; // Update with the actual registration page URL
+  window.location.href = "./registration.html"; // Update with the actual registration page URL
 }
 window.onload = checkAdminAccess();
