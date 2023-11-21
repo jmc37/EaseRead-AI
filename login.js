@@ -1,17 +1,13 @@
 function login(event) {
-  console.log("inside")
   event.preventDefault();
 
-  let username = document.getElementById("uname").value;
+  let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
 
   let data = {
     username: username,
     password: password,
   };
-
-  console.log("Data", data);
-
   fetch("https://easeread-ai-backend.onrender.com/login", {
     method: "POST",
     headers: {
@@ -26,15 +22,13 @@ function login(event) {
       return response.json();
     })
     .then((responseData) => {
-      console.log("Login successful", responseData);
-
       // Check if the server response indicates successful login
       if (responseData && responseData.access_token) {
         // Save the token in localStorage
         localStorage.setItem("access_token", responseData.access_token);
 
         // Redirect to userdashboard.html
-        window.location.href = "https://easeread-frontend.onrender.com/userDashboard.html";
+        window.location.href = "userDashboard.html";
       } else {
         console.error("Token not received in the server response");
       }
@@ -44,6 +38,7 @@ function login(event) {
       // Handle login error, e.g., show an error message
     });
 }
+
 function checkAdminAccess() {
   const jwtToken = localStorage.getItem("access_token");
 
@@ -76,15 +71,8 @@ function checkAdminAccess() {
 }
 function redirectToAdminDashboard() {
   // Redirect to admindashboard.html
-  window.location.href = "https://easeread-frontend.onrender.com/admindashboard.html";
+  window.location.href = "adminDashboard.html";
 }
 function redirectToRegister() {
-  window.location.href = "https://easeread-frontend.onrender.com/userDashboard/registration.html"; // Update with the actual registration page URL
+  window.location.href = "registration.html"; // Update with the actual registration page URL
 }
-function init() {
-  checkAdminAccess();
-}
-
-window.onload = init;
-
-

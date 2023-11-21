@@ -8,11 +8,12 @@
   <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="hamster.css">
+  <script src="login.js"></script>
   <!-- <script src="upload.js"></script> -->
 </head>
 
 <body>
-  <button id="adminButton" style="display: none;">Admin Dashboard</button>
+  <button id="adminButton" style="display:none;" onclick="redirectToAdminDashboard()">Admin Dashboard</button>
   <div class="tv">
     <div class="screen">
       <h1>Document Question Answering</h1>
@@ -36,6 +37,11 @@
     <div id="result"></div>
   </div>
 
+  <script>
+    window.addEventListener('load', function() {
+    checkAdminAccess();
+    });
+  </script>
   <script>
     async function submitForm(event) {
       event.preventDefault();
