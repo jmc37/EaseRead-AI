@@ -28,7 +28,7 @@ function login(event) {
         localStorage.setItem("access_token", responseData.access_token);
 
         // Redirect to userdashboard.html
-        window.location.href = "userDashboard.html";
+        window.location.href = "../html/userDashboard.html";
       } else {
         console.error("Token not received in the server response");
       }
@@ -91,7 +91,7 @@ function logout() {
       })
       .then((data) => {
         localStorage.removeItem("access_token")
-        window.location.href = "index.html";
+        window.location.href = "../index.html";
 
       })
       .catch((error) => {
