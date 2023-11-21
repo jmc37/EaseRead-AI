@@ -25,13 +25,12 @@
         <div>
           <button type="submit">Get Answer</button>
         </div>
-        
+
       </form>
     </div>
-    
+
   </div>
   <br>
-  
 
   <div id="resultContainer">
     <h2>Answer:</h2>
@@ -39,8 +38,8 @@
   </div>
 
   <script>
-    window.addEventListener('load', function() {
-    checkAdminAccess();
+    window.addEventListener('load', function () {
+      checkAdminAccess();
     });
   </script>
   <script>
@@ -49,69 +48,64 @@
 
       let question = document.getElementById("question").value;
 
-      // Create the request data object with user input and parameters
+      // Create the request data object with user input
       let requestData = {
-        inputs: question,
-        parameters: {
-          repetition_penalty: 4.0,
-          max_time: 60,
-          max_new_tokens: 300,
-          use_cache: false,
-          temperature: 0.8  // Adjust this value to control the diversity of the output
-        }
+        question: question,
       };
 
-      // Display the loading spinner
+      // Display the loading Hamster spinner
       document.getElementById("result").innerHTML = `<br>
       <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
-	<div class="wheel"></div>
-	<div class="hamster">
-		<div class="hamster__body">
-			<div class="hamster__head">
-				<div class="hamster__ear"></div>
-				<div class="hamster__eye"></div>
-				<div class="hamster__nose"></div>
-			</div>
-			<div class="hamster__limb hamster__limb--fr"></div>
-			<div class="hamster__limb hamster__limb--fl"></div>
-			<div class="hamster__limb hamster__limb--br"></div>
-			<div class="hamster__limb hamster__limb--bl"></div>
-			<div class="hamster__tail"></div>
-		</div>
-	</div>
-	<div class="spoke"></div>
-</div>`;
+        <div class="wheel"></div>
+        <div class="hamster">
+          <div class="hamster__body">
+            <div class="hamster__head">
+              <div class="hamster__ear"></div>
+              <div class="hamster__eye"></div>
+              <div class="hamster__nose"></div>
+            </div>
+            <div class="hamster__limb hamster__limb--fr"></div>
+            <div class="hamster__limb hamster__limb--fl"></div>
+            <div class="hamster__limb hamster__limb--br"></div>
+            <div class="hamster__limb hamster__limb--bl"></div>
+            <div class="hamster__tail"></div>
+          </div>
+        </div>
+        <div class="spoke"></div>
+      </div>`;
 
       try {
-        const response = await query(requestData);
-        console.log("Response from backend:", response);
+        // Make the POST request to your Flask backend
+        const response = await fetch('https://easeread-ai-backend.onrender.com/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
+        });
 
-        // Display the result in the frontend
-        const resultContainer = document.getElementById("result");
+        // Check if the request was successful (status code 200)
+        if (response.ok) {
+          const result = await response.json();
 
-        resultContainer.innerHTML = response[0].generated_text.replace(/\n/g, '<br>');
+          // Display the result in the frontend
+          const resultContainer = document.getElementById("result");
 
-        // Show the result container
-        document.getElementById("resultContainer").classList.remove('hidden');
+          resultContainer.innerHTML = result.answer;
+
+          // Show the result container
+          document.getElementById("resultContainer").classList.remove('hidden');
+        } else {
+          // Handle non-successful response (e.g., show an error message)
+          console.error('Error during processing:', response.statusText);
+        }
       } catch (error) {
-        console.error("Error during processing", error);
+        console.error('Error during processing', error);
         // Handle processing error, e.g., show an error message
       }
     }
-
-    async function query(data) {
-      const response = await fetch('https://hzueekj3hyei2n49.us-east-1.aws.endpoints.huggingface.cloud', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer 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',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      return result;
-    }
   </script>
+
 </body>
 
 </html>
