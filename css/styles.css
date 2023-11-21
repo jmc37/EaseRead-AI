@@ -1,72 +1,47 @@
-/* styles.css */
-
 body {
-    background-color: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+h1,
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 form {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 label {
-    display: block;
-    margin-bottom: 0.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
 }
 
 button {
-    background-color: #3490dc;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  color: #fff;
 }
 
 #resultContainer {
-    margin-top: 2rem;
-}
-
-h2 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-h1 {
-    color: #f0f0f0;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.tv {
-    position: relative;
-    width: 400px;
-    height: 300px;
-    background-color: #333;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.screen {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    background-color: black;
+  margin-top: 2rem;
+  border: 1px solid #273540;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #4e6982, #5d7d9a);
+  box-shadow: 20px 20px 20px #4a637a, -20px -20px 20px #6487a6;
+  padding: 10px;
+  margin: 0 100px;
 }
