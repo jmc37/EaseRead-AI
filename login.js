@@ -33,7 +33,7 @@ function login(event) {
         localStorage.setItem("access_token", responseData.access_token);
 
         // Redirect to userdashboard.html
-        window.location.href = "userDashboard.html";
+        window.location.href = "https://easeread-frontend.onrender.com/userDashboard";
       } else {
         console.error("Token not received in the server response");
       }
@@ -75,9 +75,9 @@ function checkAdminAccess() {
 }
 function redirectToAdminDashboard() {
   // Redirect to admindashboard.html
-  window.location.href = "./admindashboard.html";
+  window.location.href = "https://easeread-frontend.onrender.com/admindashboard.html";
 }
 function redirectToRegister() {
-  window.location.href = "./registration.html"; // Update with the actual registration page URL
+  window.location.href = "https://easeread-frontend.onrender.com/userDashboard/registration.html"; // Update with the actual registration page URL
 }
 window.onload = checkAdminAccess();
