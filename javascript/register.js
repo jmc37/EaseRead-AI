@@ -1,9 +1,14 @@
 function registerUser(event) {
-  let username = document.getElementById("uname").value;
+  event.preventDefault();
+  let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
 
   let data = {
     username: username,
+    name: name,
+    email: email,
     password: password,
   };
 
@@ -15,15 +20,23 @@ function registerUser(event) {
     },
     body: JSON.stringify(data),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then((data) => {
-      // Handle the response from the API
-      console.log(data);
-      // Do something with the response, such as displaying a success message
+      window.location.href = "../index.html";
     })
     .catch((error) => {
-      // Handle any errors that occurred during the API call
       console.error("Error:", error);
+
       // Display an error message to the user
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
+        alert("Failed to connect to the server. Please try again later.");
+      } else {
+        alert("Registration failed. Please try again.");
+      }
     });
 }

@@ -101,8 +101,8 @@ function logout() {
 }
 function redirectToAdminDashboard() {
   // Redirect to admindashboard.html
-  window.location.href = "adminDashboard.html";
+  window.location.href = "../html/adminDashboard.html";
 }
 function redirectToRegister() {
-  window.location.href = "registration.html"; // Update with the actual registration page URL
+  window.location.href = "../html/registration.html"; // Update with the actual registration page URL
 }
