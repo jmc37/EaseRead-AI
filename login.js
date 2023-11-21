@@ -1,7 +1,8 @@
 function login(event) {
+  console.log("inside")
   event.preventDefault();
 
-  let username = document.getElementById("username").value;
+  let username = document.getElementById("uname").value;
   let password = document.getElementById("password").value;
 
   let data = {
