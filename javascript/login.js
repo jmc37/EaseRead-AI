@@ -8,6 +8,7 @@ function login(event) {
     username: username,
     password: password,
   };
+
   fetch("https://easeread-ai-backend.onrender.com/login", {
     method: "POST",
     headers: {
@@ -22,10 +23,9 @@ function login(event) {
       return response.json();
     })
     .then((responseData) => {
-      // Check if the server response indicates successful login
       if (responseData && responseData.access_token) {
-        // Save the token in localStorage
-        localStorage.setItem("access_token", responseData.access_token);
+        // Set the token as an HTTP cookie
+        document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
 
         // Redirect to userdashboard.html
         window.location.href = "../html/userDashboard.html";
@@ -40,11 +40,9 @@ function login(event) {
 }
 
 function checkAdminAccess() {
-  const jwtToken = localStorage.getItem("access_token");
+  const jwtToken = getCookie("access_token");
 
-  // Check if the token is present
   if (jwtToken) {
-    // Send a request to your server to validate the token
     fetch("https://easeread-ai-backend.onrender.com/admin-dashboard", {
       method: "GET",
       headers: {
@@ -59,7 +57,6 @@ function checkAdminAccess() {
         return response.json();
       })
       .then((data) => {
-        // If the server response indicates admin access, display the button
         if (data.is_admin) {
           document.getElementById("adminButton").style.display = "block";
         }
@@ -71,11 +68,9 @@ function checkAdminAccess() {
 }
 
 function logout() {
-  const jwtToken = localStorage.getItem("access_token");
+  const jwtToken = getCookie("access_token");
 
-  // Check if the token is present
   if (jwtToken) {
-    // Send a request to your server to validate the token
     fetch("https://easeread-ai-backend.onrender.com/logout", {
       method: "POST",
       headers: {
@@ -90,19 +85,27 @@ function logout() {
         return response.json();
       })
       .then((data) => {
-        localStorage.removeItem("access_token")
+        // Delete the token cookie
+        document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly";
         window.location.href = "../index.html";
-
       })
       .catch((error) => {
         console.error("Error logging out", error);
       });
   }
 }
+
 function redirectToAdminDashboard() {
-  // Redirect to admindashboard.html
   window.location.href = "../html/adminDashboard.html";
 }
+
 function redirectToRegister() {
-  window.location.href = "../html/registration.html"; // Update with the actual registration page URL
+  window.location.href = "../html/registration.html";
+}
+
+// Function to get the value of a cookie by name
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
 }
