@@ -1,3 +1,26 @@
+const login_route = loginStrings.apiRoutes.login;
+const admin_dashboard_route = loginStrings.apiRoutes.adminDashboard;
+const logout_route = loginStrings.apiRoutes.logout;
+
+const empty_username = loginStrings.messages.emptyUsername;
+const valid_password = loginStrings.messages.validPassword;
+const http_error = loginStrings.messages.httpError;
+const token_error = loginStrings.messages.tokenError;
+const login_error = loginStrings.messages.loginError;
+const admin_error = loginStrings.messages.adminError;
+const logout_error = loginStrings.messages.logoutError;
+const jwt_error = loginStrings.messages.jwtError;
+
+const get_method = loginStrings.methods.get;
+const post_method = loginStrings.methods.post;
+
+const content_type = loginStrings.contentType;
+const application_json = loginStrings.applicationJSON;
+const bearer = loginStrings.bearer;
+const access_token = loginStrings.accessToken;
+const document_cookie = loginStrings.documentCookie;
+
+
 function login(event) {
   event.preventDefault();
 
@@ -6,13 +29,13 @@ function login(event) {
 
   // Validate username format (ensure it's not empty)
   if (!username.trim()) {
-    alert("Please enter a valid username. It must not be empty.");
+    alert(empty_username);
     return;
   }
 
   // Validate password format
   if (!password || password.length < 8) {
-    alert("Please enter a valid password with at least 8 characters.");
+    alert(valid_password);
     return;
   }
 
@@ -21,16 +44,16 @@ function login(event) {
     password: password,
   };
 
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
-    method: "POST",
+  fetch(login_route, {
+    method: post_method,
     headers: {
-      "Content-Type": "application/json",
+      content_type: application_json,
     },
     body: JSON.stringify(data),
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`${http_error}${response.status}`);
       }
       return response.json();
     })
@@ -42,28 +65,28 @@ function login(event) {
         // Redirect to userdashboard.html
         window.location.href = "../html/userDashboard.html";
       } else {
-        console.error("Token not received in the server response");
+        console.error(token_error);
       }
     })
     .catch((error) => {
-      console.error("Error during login", error);
+      console.error(login_error, error);
     });
 }
 function checkAdminAccess() {
-  const jwtToken = getCookie("access_token");
+  const jwtToken = getCookie(access_token);
 
   if (jwtToken) {
     // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-      method: "GET",
+    fetch(admin_dashboard_route, {
+      method: get_method,
       headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
+        Authorization: `${bearer} ${jwtToken}`,
+        content_type: application_json,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`${http_error}${response.status}`);
         }
         return response.json();
       })
@@ -73,25 +96,25 @@ function checkAdminAccess() {
         }
       })
       .catch((error) => {
-        console.error("Error checking admin access:", error);
+        console.error(admin_error, error);
       });
   }
 }
 function logout() {
-  const jwtToken = getCookie("access_token");
+  const jwtToken = getCookie(access_token);
 
   if (jwtToken) {
     // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
-      method: "POST",
+    fetch(logout_route, {
+      method: post_method,
       headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
+        Authorization: `${bearer} ${jwtToken}`,
+        content_type: application_json,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`${http_error}${response.status}`);
         }
         return response.json();
       })
@@ -99,14 +122,14 @@ function logout() {
         console.log("Logout successful:", data);
 
         // Delete the token cookie
-        document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly";
+        document.cookie = document_cookie;
         window.location.href = "../index.html";
       })
       .catch((error) => {
-        console.error("Error logging out:", error);
+        console.error(logout_error, error);
       });
   } else {
-    console.error("No JWT token found for logout");
+    console.error(jwt_error);
   }
 }
 
