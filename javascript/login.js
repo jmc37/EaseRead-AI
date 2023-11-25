@@ -8,8 +8,7 @@ function login(event) {
     username: username,
     password: password,
   };
-
-  fetch("https://easeread-ai-backend.onrender.com/login", {
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,7 +42,8 @@ function checkAdminAccess() {
   const jwtToken = getCookie("access_token");
 
   if (jwtToken) {
-    fetch("https://easeread-ai-backend.onrender.com/admin-dashboard", {
+    // Send a request to your server to validate the token
+    fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -71,7 +71,8 @@ function logout() {
   const jwtToken = getCookie("access_token");
 
   if (jwtToken) {
-    fetch("https://easeread-ai-backend.onrender.com/logout", {
+    // Send a request to your server to validate the token
+    fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -85,15 +86,20 @@ function logout() {
         return response.json();
       })
       .then((data) => {
+        console.log("Logout successful:", data);
+
         // Delete the token cookie
         document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly";
         window.location.href = "../index.html";
       })
       .catch((error) => {
-        console.error("Error logging out", error);
+        console.error("Error logging out:", error);
       });
+  } else {
+    console.error("No JWT token found for logout");
   }
 }
+
 
 function redirectToAdminDashboard() {
   window.location.href = "../html/adminDashboard.html";

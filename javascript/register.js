@@ -13,7 +13,7 @@ function registerUser(event) {
   };
 
   // Make an API call to register the user
-  fetch("https://easeread-ai-backend.onrender.com/register", {
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
