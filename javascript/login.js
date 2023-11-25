@@ -4,10 +4,23 @@ function login(event) {
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
 
+  // Validate username format (ensure it's not empty)
+  if (!username.trim()) {
+    alert("Please enter a valid username. It must not be empty.");
+    return;
+  }
+
+  // Validate password format
+  if (!password || password.length < 8) {
+    alert("Please enter a valid password with at least 8 characters.");
+    return;
+  }
+
   let data = {
     username: username,
     password: password,
   };
+
   fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
     method: "POST",
     headers: {
@@ -34,10 +47,8 @@ function login(event) {
     })
     .catch((error) => {
       console.error("Error during login", error);
-      // Handle login error, e.g., show an error message
     });
 }
-
 function checkAdminAccess() {
   const jwtToken = getCookie("access_token");
 
@@ -66,7 +77,6 @@ function checkAdminAccess() {
       });
   }
 }
-
 function logout() {
   const jwtToken = getCookie("access_token");
 

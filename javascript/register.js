@@ -1,9 +1,35 @@
 function registerUser(event) {
   event.preventDefault();
+
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
+
+  // Validate email format using a regular expression
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  // Validate password length
+  if (!password || password.length < 8) {
+    alert("Please enter a password with at least 8 characters.");
+    return;
+  }
+
+  // Validate username is not empty
+  if (!username.trim()) {
+    alert("Please enter a valid username. Username must not be empty.");
+    return;
+  }
+
+  // Validate name is not empty
+  if (!name.trim()) {
+    alert("Please enter a valid name. Name must not be empty.");
+    return;
+  }
 
   let data = {
     username: username,
