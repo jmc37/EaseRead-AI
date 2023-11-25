@@ -5,6 +5,13 @@ function registerUser(event) {
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
 
+  // Validate email format using a regular expression
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
   let data = {
     username: username,
     name: name,
