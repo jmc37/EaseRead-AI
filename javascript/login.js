@@ -47,7 +47,6 @@ function login(event) {
     })
     .catch((error) => {
       console.error("Error during login", error);
-      // Handle login error, e.g., show an error message
     });
 }
 function checkAdminAccess() {
