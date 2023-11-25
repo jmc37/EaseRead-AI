@@ -8,7 +8,7 @@ function login(event) {
     username: username,
     password: password,
   };
-  fetch("https://easeread-ai-backend.onrender.com/login", {
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -45,7 +45,7 @@ function checkAdminAccess() {
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/admin-dashboard", {
+    fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -76,7 +76,7 @@ function logout() {
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/logout", {
+    fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${jwtToken}`,

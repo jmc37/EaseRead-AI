@@ -17,7 +17,7 @@ function submitForm(event) {
 
   console.log(jsonData);
 
-  fetch("https://easeread-ai-backend.onrender.com/document_qa", {
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/document_qa", {
       method: "POST",
       headers: {
           "Content-Type": "application/json"
