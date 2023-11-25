@@ -5,7 +5,7 @@ function getUsersList() {
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to get the list of users
-    fetch("https://easeread-ai-backend.onrender.com/users", {
+    fetch("https://easeread-ai-backend.onrender.com/API/v1/users", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -58,7 +58,7 @@ function makeAdmin(userId) {
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to make the user an admin
-    fetch(`https://easeread-ai-backend.onrender.com/user/${userId}`, {
+    fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${userId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -89,7 +89,7 @@ function removeAdmin(userId) {
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to remove admin status from the user
-    fetch(`https://easeread-ai-backend.onrender.com/user/${userId}`, {
+    fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${userId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -119,7 +119,7 @@ function deleteUser(userId) {
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to delete the user
-    fetch(`https://easeread-ai-backend.onrender.com/user/${userId}`, {
+    fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${userId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${jwtToken}`,
