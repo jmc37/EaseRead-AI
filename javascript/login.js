@@ -11,8 +11,8 @@ function login(event) {
   }
 
   // Validate password format
-  if (!password || password.length < 8) {
-    alert("Please enter a valid password with at least 8 characters.");
+  if (!password) {
+    alert("Please enter a valid password");
     return;
   }
 
@@ -32,23 +32,14 @@ function login(event) {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json();
-    })
-    .then((responseData) => {
-      if (responseData && responseData.access_token) {
-        // Set the token as an HTTP cookie
-        document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
-
-        // Redirect to userdashboard.html
-        window.location.href = "../html/userDashboard.html";
-      } else {
-        console.error("Token not received in the server response");
-      }
+      // Redirect to userDashboard.html on a successful server response
+      window.location.href = "../html/userDashboard.html";
     })
     .catch((error) => {
       console.error("Error during login", error);
     });
 }
+
 function checkAdminAccess() {
   const jwtToken = getCookie("access_token");
 
