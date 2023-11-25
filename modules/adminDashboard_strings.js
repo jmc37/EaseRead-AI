@@ -17,6 +17,14 @@ const adminDashboardStrings = {
         patch: "PATCH",
         delete: "DELETE",
     },
+    userListItem: {
+        adminText: " - Admin: ",
+        yes: "Yes",
+        no: "No",
+        makeAdminButton: "Make Admin",
+        removeAdminButton: "Remove Admin",
+        deleteUserButton: "Delete User"
+    },
     contentType: "Content-Type",
     accessToken: "access_token",
     applicationJSON: "application/json",

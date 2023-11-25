@@ -12,6 +12,13 @@ const put_method = adminDashboardStrings.methods.put;
 const patch_method = adminDashboardStrings.methods.patch;
 const delete_method = adminDashboardStrings.methods.delete;
 
+const admin_text = adminDashboardStrings.userListItem.adminText;
+const yes_text = adminDashboardStrings.userListItem.yes;
+const no_text = adminDashboardStrings.userListItem.no;
+const make_admin_button_text = adminDashboardStrings.userListItem.makeAdminButton;
+const remove_admin_button_text = adminDashboardStrings.userListItem.removeAdminButton;
+const delete_user_button_text = adminDashboardStrings.userListItem.deleteUserButton;
+
 const content_type = adminDashboardStrings.contentType;
 const access_token = adminDashboardStrings.accessToken;
 const application_json = adminDashboardStrings.applicationJSON;
@@ -63,10 +70,10 @@ function getCookie(name) {
       .map(
         (user) => `
                     <li>
-                    ${user.username} - Admin: ${user.admin ? "Yes" : "No"}
-                    <button onclick="makeAdmin(${user.id})">Make Admin</button>
-                    <button onclick="removeAdmin(${user.id})">Remove Admin</button>
-                    <button onclick="deleteUser(${user.id})">Delete User</button>
+                    ${user.username}${admin_text}: ${user.admin ? yes_text : no_text}
+                    <button onclick="makeAdmin(${user.id})">${make_admin_button_text}</button>
+                    <button onclick="removeAdmin(${user.id})">${remove_admin_button_text}</button>
+                    <button onclick="deleteUser(${user.id})">${delete_user_button_text}</button>
                     </li>`
       )
       .join("") +
