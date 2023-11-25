@@ -1,20 +1,40 @@
+const all_users = adminDashboardStrings.apiRoutes.allUsers;
+const single_user = adminDashboardStrings.apiRoutes.singleUser;
+
+const http_error = adminDashboardStrings.messages.httpError;
+const user_list_error = adminDashboardStrings.messages.userListError;
+const admin_error = adminDashboardStrings.messages.adminError;
+const admin_remove_error = adminDashboardStrings.messages.adminRemovError;
+const deleting_user_error = adminDashboardStrings.messages.deletingUserError;
+
+const get_method = adminDashboardStrings.methods.get;
+const put_method = adminDashboardStrings.methods.put;
+const patch_method = adminDashboardStrings.methods.patch;
+const delete_method = adminDashboardStrings.methods.delete;
+
+const content_type = adminDashboardStrings.contentType;
+const access_token = adminDashboardStrings.accessToken;
+const application_json = adminDashboardStrings.applicationJSON;
+const bearer = adminDashboardStrings.bearer;
+
+
 function getUsersList() {
   // Retrieve the JWT token from cookies
-  const jwtToken = getCookie("access_token");
+  const jwtToken = getCookie(access_token);
 
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to get the list of users
-    fetch("https://easeread-ai-backend.onrender.com/API/v1/users", {
-      method: "GET",
+    fetch(all_users, {
+      method: get_method,
       headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
+        Authorization: `${bearer} ${jwtToken}`,
+        content_type: application_json,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`${http_error}${response.status}`);
         }
         return response.json();
       })
@@ -23,7 +43,7 @@ function getUsersList() {
         displayUsers(users);
       })
       .catch((error) => {
-        console.error("Error getting users list:", error);
+        console.error(user_list_error, error);
       });
   }
 }
@@ -58,21 +78,21 @@ function getCookie(name) {
 
 function makeAdmin(userId) {
   // Retrieve the JWT token from localStorage
-  const jwtToken = localStorage.getItem("access_token");
+  const jwtToken = localStorage.getItem(access_token);
 
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to make the user an admin
-    fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${userId}`, {
-      method: "PUT",
+    fetch(`${single_user}${userId}`, {
+      method: put_method,
       headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
+        Authorization: `${bearer} ${jwtToken}`,
+        content_type: application_json,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`${http_error}${response.status}`);
         }
         return response.json();
       })
@@ -82,28 +102,28 @@ function makeAdmin(userId) {
         getUsersList();
       })
       .catch((error) => {
-        console.error("Error making user admin:", error);
+        console.error(admin_error, error);
       });
   }
 }
 
 function removeAdmin(userId) {
   // Retrieve the JWT token from localStorage
-  const jwtToken = localStorage.getItem("access_token");
+  const jwtToken = localStorage.getItem(access_token);
 
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to remove admin status from the user
-    fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${userId}`, {
-      method: "PATCH",
+    fetch(`${single_user}${userId}`, {
+      method: patch_method,
       headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
+        Authorization: `${bearer} ${jwtToken}`,
+        content_type: application_json,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`${http_error}${response.status}`);
         }
         return response.json();
       })
@@ -113,27 +133,27 @@ function removeAdmin(userId) {
         getUsersList();
       })
       .catch((error) => {
-        console.error("Error removing admin status from user:", error);
+        console.error(admin_remove_error, error);
       });
   }
 }
 function deleteUser(userId) {
   // Retrieve the JWT token from localStorage
-  const jwtToken = localStorage.getItem("access_token");
+  const jwtToken = localStorage.getItem(access_token);
 
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to delete the user
-    fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${userId}`, {
-      method: "DELETE",
+    fetch(`${single_user}${userId}`, {
+      method: delete_method,
       headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
+        Authorization: `${bearer} ${jwtToken}`,
+        content_type: application_json,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`${http_error}${response.status}`);
         }
         return response.json();
       })
@@ -143,7 +163,7 @@ function deleteUser(userId) {
         getUsersList();
       })
       .catch((error) => {
-        console.error("Error deleting user:", error);
+        console.error(deleting_user_error, error);
       });
   }
 }
