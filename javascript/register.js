@@ -1,3 +1,20 @@
+const register_route = registerStrings.apiRoutes.register;
+
+const http_error = registerStrings.messages.httpError;
+const email_error = registerStrings.messages.emailError;
+const password_error = registerStrings.messages.passwordError;
+const username_error = registerStrings.messages.usernameError;
+const name_error = registerStrings.messages.nameError;
+const error_message = registerStrings.messages.error;
+const server_error = registerStrings.messages.serverError;
+const register_error = registerStrings.messages.registerError;
+
+const post_method = registerStrings.methods.post;
+
+const content_type = registerStrings.contentType;
+const application_json = registerStrings.applicationJSON;
+const regex = registerStrings.regex;
+
 function registerUser(event) {
   event.preventDefault();
 
@@ -7,27 +24,27 @@ function registerUser(event) {
   let email = document.getElementById("email").value;
 
   // Validate email format using a regular expression
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let emailRegex = regex;
   if (!emailRegex.test(email)) {
-    alert("Please enter a valid email address.");
+    alert(email_error);
     return;
   }
 
   // Validate password length
   if (!password || password.length < 8) {
-    alert("Please enter a password with at least 8 characters.");
+    alert(password_error);
     return;
   }
 
   // Validate username is not empty
   if (!username.trim()) {
-    alert("Please enter a valid username. Username must not be empty.");
+    alert(username_error);
     return;
   }
 
   // Validate name is not empty
   if (!name.trim()) {
-    alert("Please enter a valid name. Name must not be empty.");
+    alert(name_error);
     return;
   }
 
@@ -39,16 +56,16 @@ function registerUser(event) {
   };
 
   // Make an API call to register the user
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/register", {
-    method: "POST",
+  fetch(register_route, {
+    method: post_method,
     headers: {
-      "Content-Type": "application/json",
+      content_type: application_json,
     },
     body: JSON.stringify(data),
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`${http_error}${response.status}`);
       }
       return response.json();
     })
@@ -56,13 +73,13 @@ function registerUser(event) {
       window.location.href = "../index.html";
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.error(error_message, error);
 
       // Display an error message to the user
       if (error instanceof TypeError && error.message === "Failed to fetch") {
-        alert("Failed to connect to the server. Please try again later.");
+        alert(server_error);
       } else {
-        alert("Registration failed. Please try again.");
+        alert(registerError);
       }
     });
 }
