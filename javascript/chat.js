@@ -1,4 +1,15 @@
-window.addEventListener('load', function () {
+const chat_route = chatStrings.apiRoutes.chat;
+
+const processing_error = chatStrings.messages.processingError;
+
+const post_method = chatStrings.methods.post;
+
+const load = chatStrings.load;
+const content_type = chatStrings.contentType;
+const application_json = chatStrings.applicationJSON;
+const loading_wheel = chatStrings.bigHTML;
+
+window.addEventListener(load, function () {
     checkAdminAccess();
 });
 
@@ -13,32 +24,14 @@ async function submitForm(event) {
     };
 
     // Display the loading Hamster spinner
-    document.getElementById("result").innerHTML = `<br>
-    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
-      <div class="wheel"></div>
-      <div class="hamster">
-        <div class="hamster__body">
-          <div class="hamster__head">
-            <div class="hamster__ear"></div>
-            <div class="hamster__eye"></div>
-            <div class="hamster__nose"></div>
-          </div>
-          <div class="hamster__limb hamster__limb--fr"></div>
-          <div class="hamster__limb hamster__limb--fl"></div>
-          <div class="hamster__limb hamster__limb--br"></div>
-          <div class="hamster__limb hamster__limb--bl"></div>
-          <div class="hamster__tail"></div>
-        </div>
-      </div>
-      <div class="spoke"></div>
-    </div>`;
+    document.getElementById("result").innerHTML = loading_wheel;
 
     try {
         // Make the POST request to your Flask backend
-        const response = await fetch('https://easeread-ai-backend.onrender.com/API/v1/chat', {
-            method: 'POST',
+        const response = await fetch(chat_route, {
+            method: post_method,
             headers: {
-                'Content-Type': 'application/json',
+                content_type: application_json,
             },
             body: JSON.stringify(requestData),
         });
@@ -56,10 +49,10 @@ async function submitForm(event) {
             document.getElementById("resultContainer").classList.remove('hidden');
         } else {
             // Handle non-successful response (e.g., show an error message)
-            console.error('Error during processing:', response.statusText);
+            console.error(processing_error, response.statusText);
         }
     } catch (error) {
-        console.error('Error during processing', error);
+        console.error(processing_error, error);
         // Handle processing error, e.g., show an error message
     }
 }
