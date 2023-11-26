@@ -107,7 +107,7 @@ function checkAdminAccess() {
 }
 function logout() {
   const jwtToken = getCookie("access_token");
-
+  console.log(jwtToken)
   if (jwtToken) {
     // Send a request to your server to validate the token
     fetch(logout_route, {
