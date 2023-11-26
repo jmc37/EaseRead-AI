@@ -132,6 +132,6 @@ function logout() {
           console.error(logout_error, error);
         });
     } else {
-      console.error(jwt_error);
+      console.error("jwt_error");
     }
   }

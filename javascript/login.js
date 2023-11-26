@@ -102,6 +102,7 @@ function login(event) {
     })
     .then((responseData) => {
       if (responseData && responseData.access_token) {
+        console.log("Response Data:", responseData);
         // Set the token as an HTTP cookie
         document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
 
