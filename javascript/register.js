@@ -76,7 +76,6 @@ function registerUser(event) {
       window.location.href = "../index.html";
     })
     .catch((error) => {
-      console.log(response)
       console.error(error_message, error);
     
 
