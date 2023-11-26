@@ -49,7 +49,7 @@ function login(event) {
   fetch(login_route, {
     method: post_method,
     headers: {
-      content_type: application_json,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   })
@@ -86,7 +86,7 @@ function checkAdminAccess() {
       method: get_method,
       headers: {
         Authorization: `${bearer} ${jwtToken}`,
-        content_type: application_json,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
@@ -114,7 +114,7 @@ function logout() {
       method: post_method,
       headers: {
         Authorization: `${bearer} ${jwtToken}`,
-        content_type: application_json,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
