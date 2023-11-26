@@ -7,44 +7,45 @@ const loading_wheel = chatStrings.bigHTML;
 
 // Function to get the value of a cookie by name
 function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
+    console.log("coookie here:", document.cookie)
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
 function checkAdminAccess() {
     const jwtToken = getCookie("access_token");
     console.log("jwt token", jwtToken);
-  
+
     if (jwtToken) {
-      // Send a request to your server to validate the token
-      return fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
+        // Send a request to your server to validate the token
+        return fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+                "Content-Type": "application/json",
+            },
         })
-        .then((data) => {
-          if (data.is_admin) {
-            document.getElementById("adminButton").style.display = "block";
-          }
-        })
-        .catch((error) => {
-          console.error("Error checking admin access:", error);
-        });
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data.is_admin) {
+                    document.getElementById("adminButton").style.display = "block";
+                }
+            })
+            .catch((error) => {
+                console.error("Error checking admin access:", error);
+            });
     }
-  
+
     // If there is no token, return a resolved promise
     return Promise.resolve();
-  }
-  
+}
+
 
 
 window.addEventListener(load, function () {
@@ -53,79 +54,79 @@ window.addEventListener(load, function () {
 });
 
 async function submitForm(event) {
-  event.preventDefault();
-  console.log("Form was submitted");
-  let question = document.getElementById("question").value;
+    event.preventDefault();
+    console.log("Form was submitted");
+    let question = document.getElementById("question").value;
 
-  // Create the request data object with user input
-  let requestData = {
-    question: question,
-  };
+    // Create the request data object with user input
+    let requestData = {
+        question: question,
+    };
 
-  // Display the loading Hamster spinner
-  document.getElementById("result").innerHTML = loading_wheel;
+    // Display the loading Hamster spinner
+    document.getElementById("result").innerHTML = loading_wheel;
 
-  try {
-    console.log("sending req");
-    // Make the POST request to your Flask backend
-    const response = await fetch(chat_route, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    });
+    try {
+        console.log("sending req");
+        // Make the POST request to your Flask backend
+        const response = await fetch(chat_route, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+        });
 
-    // Check if the request was successful (status code 200)
-    if (response.ok) {
-      const result = await response.json();
+        // Check if the request was successful (status code 200)
+        if (response.ok) {
+            const result = await response.json();
 
-      // Display the result in the frontend
-      const resultContainer = document.getElementById("result");
+            // Display the result in the frontend
+            const resultContainer = document.getElementById("result");
 
-      resultContainer.innerHTML = result.answer;
+            resultContainer.innerHTML = result.answer;
 
-      // Show the result container
-      document.getElementById("resultContainer").classList.remove("hidden");
-    } else {
-      // Handle non-successful response (e.g., show an error message)
-      console.error(processing_error, response.statusText);
+            // Show the result container
+            document.getElementById("resultContainer").classList.remove("hidden");
+        } else {
+            // Handle non-successful response (e.g., show an error message)
+            console.error(processing_error, response.statusText);
+        }
+    } catch (error) {
+        console.error(processing_error, error);
+        // Handle processing error, e.g., show an error message
     }
-  } catch (error) {
-    console.error(processing_error, error);
-    // Handle processing error, e.g., show an error message
-  }
 }
 
 function logout() {
     const jwtToken = getCookie("access_token");
     console.log(jwtToken)
     if (jwtToken) {
-      // Send a request to your server to validate the token
-      fetch(logout_route, {
-        method: post_method,
-        headers: {
-          Authorization: `${bearer} ${jwtToken}`,
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`${http_error}${response.status}`);
-          }
-          return response.json();
+        // Send a request to your server to validate the token
+        fetch(logout_route, {
+            method: post_method,
+            headers: {
+                Authorization: `${bearer} ${jwtToken}`,
+                "Content-Type": "application/json",
+            },
         })
-        .then((data) => {
-          console.log(logoutSuccess, data);
-  
-          // Delete the token cookie
-          document.cookie = document_cookie;
-          window.location.href = "../index.html";
-        })
-        .catch((error) => {
-          console.error(logout_error, error);
-        });
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`${http_error}${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(logoutSuccess, data);
+
+                // Delete the token cookie
+                document.cookie = document_cookie;
+                window.location.href = "../index.html";
+            })
+            .catch((error) => {
+                console.error(logout_error, error);
+            });
     } else {
-      console.error("jwt_error");
+        console.error("jwt_error");
     }
-  }
+}
