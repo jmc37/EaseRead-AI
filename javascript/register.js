@@ -17,6 +17,7 @@ const regex = registerStrings.regex;
 
 function registerUser(event) {
   event.preventDefault();
+  console.log(register_route);
 
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
