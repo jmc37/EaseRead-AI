@@ -90,3 +90,36 @@ async function submitForm(event) {
     // Handle processing error, e.g., show an error message
   }
 }
+
+function logout() {
+    const jwtToken = getCookie("access_token");
+    console.log(jwtToken)
+    if (jwtToken) {
+      // Send a request to your server to validate the token
+      fetch(logout_route, {
+        method: post_method,
+        headers: {
+          Authorization: `${bearer} ${jwtToken}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`${http_error}${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(logoutSuccess, data);
+  
+          // Delete the token cookie
+          document.cookie = document_cookie;
+          window.location.href = "../index.html";
+        })
+        .catch((error) => {
+          console.error(logout_error, error);
+        });
+    } else {
+      console.error(jwt_error);
+    }
+  }
