@@ -78,7 +78,7 @@ function login(event) {
 }
 
 function checkAdminAccess() {
-  const jwtToken = getCookie(access_token);
+  const jwtToken = getCookie("access_token");
 
   if (jwtToken) {
     // Send a request to your server to validate the token
@@ -106,7 +106,7 @@ function checkAdminAccess() {
   }
 }
 function logout() {
-  const jwtToken = getCookie(access_token);
+  const jwtToken = getCookie("access_token");
 
   if (jwtToken) {
     // Send a request to your server to validate the token

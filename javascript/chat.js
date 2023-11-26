@@ -2,11 +2,7 @@ const chat_route = chatStrings.apiRoutes.chat;
 
 const processing_error = chatStrings.messages.processingError;
 
-// const post_method = chatStrings.methods.post;
-
 const load = chatStrings.load;
-// const content_type = chatStrings.contentType;
-// const application_json = chatStrings.applicationJSON;
 const loading_wheel = chatStrings.bigHTML;
 
 window.addEventListener(load, function () {
