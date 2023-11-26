@@ -1,4 +1,5 @@
-const { response } = require("express");
+import { response } from "express";
+
 
 const register_route = registerStrings.apiRoutes.register;
 
