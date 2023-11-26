@@ -31,7 +31,7 @@ async function submitForm(event) {
         const response = await fetch(chat_route, {
             method: post_method,
             headers: {
-                content_type: application_json,
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(requestData),
         });
