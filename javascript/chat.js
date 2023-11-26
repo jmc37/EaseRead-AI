@@ -93,7 +93,7 @@ function logout() {
     if (jwtToken) {
       // Send a request to your server to validate the token
       fetch(logout_route, {
-        method: post_method,
+        method: "POST",
         headers: {
           Authorization: `${bearer} ${jwtToken}`,
           "Content-Type": "application/json",
