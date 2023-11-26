@@ -15,7 +15,7 @@ window.addEventListener(load, function () {
 
 async function submitForm(event) {
     event.preventDefault();
-
+    console.log("Form was submitted")
     let question = document.getElementById("question").value;
 
     // Create the request data object with user input
@@ -27,6 +27,7 @@ async function submitForm(event) {
     document.getElementById("result").innerHTML = loading_wheel;
 
     try {
+        console.log("sending req")
         // Make the POST request to your Flask backend
         const response = await fetch(chat_route, {
             method: post_method,
