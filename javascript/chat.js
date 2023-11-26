@@ -5,46 +5,33 @@ const processing_error = chatStrings.messages.processingError;
 const load = chatStrings.load;
 const loading_wheel = chatStrings.bigHTML;
 
-// Function to get the value of a cookie by name
-function getCookie(name) {
-    console.log("coookie here:", document.cookie)
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-}
 
 function checkAdminAccess() {
-    const jwtToken = getCookie("access_token");
-    console.log("jwt token", jwtToken);
-
-    if (jwtToken) {
-        // Send a request to your server to validate the token
-        return fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${jwtToken}`,
-                "Content-Type": "application/json",
-            },
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                if (data.is_admin) {
-                    document.getElementById("adminButton").style.display = "block";
-                }
-            })
-            .catch((error) => {
-                console.error("Error checking admin access:", error);
-            });
-    }
-
-    // If there is no token, return a resolved promise
-    return Promise.resolve();
-}
+    const jwtToken = localStorage.getItem("access_token");
+    // Send a request to your server to validate the token
+    fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.is_admin) {
+          document.getElementById("adminButton").style.display = "block";
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking admin access:", error);
+      });
+  
+  }
 
 
 
@@ -99,34 +86,34 @@ async function submitForm(event) {
 }
 
 function logout() {
-    const jwtToken = getCookie("access_token");
+    const jwtToken = localStorage.getItem("access_token");
     console.log(jwtToken)
     if (jwtToken) {
-        // Send a request to your server to validate the token
-        fetch(logout_route, {
-            method: post_method,
-            headers: {
-                Authorization: `${bearer} ${jwtToken}`,
-                "Content-Type": "application/json",
-            },
+      // Send a request to your server to validate the token
+      fetch(logout_route, {
+        method: post_method,
+        headers: {
+          Authorization: `${bearer} ${jwtToken}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`${http_error}${response.status}`);
+          }
+          return response.json();
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`${http_error}${response.status}`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log(logoutSuccess, data);
-
-                // Delete the token cookie
-                document.cookie = document_cookie;
-                window.location.href = "../index.html";
-            })
-            .catch((error) => {
-                console.error(logout_error, error);
-            });
+        .then((data) => {
+          console.log(logoutSuccess, data);
+  
+          // Delete the token cookie
+          document.cookie = document_cookie;
+          window.location.href = "../index.html";
+        })
+        .catch((error) => {
+          console.error(logout_error, error);
+        });
     } else {
-        console.error("jwt_error");
+      console.error(jwt_error);
     }
-}
+  }

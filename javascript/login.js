@@ -22,61 +22,6 @@ const access_token = loginStrings.accessToken;
 const document_cookie = loginStrings.documentCookie;
 
 
-// function login(event) {
-//   event.preventDefault();
-//   console.log(login_route);
-
-//   let username = document.getElementById("username").value;
-//   let password = document.getElementById("password").value;
-
-//   // Validate username format (ensure it's not empty)
-//   if (!username.trim()) {
-//     alert(empty_username);
-//     return;
-//   }
-
-
-//   if (!password) {
-//     alert(valid_password);
-//     return;
-//   }
-
-//   let data = {
-//     username: username,
-//     password: password,
-//   };
-
-//   fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
-//     method: post_method,
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(data),
-//   })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error(`${http_error}${response.status}`);
-//       }
-//       // return response.json();
-//     })
-//     .then((responseData) => {
-//       if (responseData && responseData.access_token) {
-//         console.log("response.aceestoken:" ,responseData.access_token)
-//         // Set the token as an HTTP cookie
-//         document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
-
-//         // Redirect to userdashboard.html
-//         window.location.href = "../html/userDashboard.html";
-//       } else {
-//         console.error(token_error);
-//       }
-//       // Redirect to userDashboard.html on a successful server response
-//       window.location.href = "../html/userDashboard.html";
-//     })
-//     .catch((error) => {
-//       console.error(login_error, error);
-//     });
-// }
 function login(event) {
   event.preventDefault();
 
@@ -103,11 +48,7 @@ function login(event) {
     })
     .then((responseData) => {
       if (responseData && responseData.access_token) {
-        const accessToken = responseData.access_token;
-        console.log("Access Token:", accessToken);
-        // Access the access_token cookie
-        const accessCookie = getCookie('access_token');
-        console.log('cookie:', accessCookie);
+        localStorage.setItem("access_token", responseData.access_token);
       } else {
         console.error("Token not received in the server response");
       }
@@ -149,36 +90,34 @@ function login(event) {
 // }
 
 function checkAdminAccess() {
-  const jwtToken = getCookie("access_token");
-
-  if (jwtToken) {
-    // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
+  const jwtToken = localStorage.getItem("access_token");
+  // Send a request to your server to validate the token
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${jwtToken}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.is_admin) {
-          document.getElementById("adminButton").style.display = "block";
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking admin access:", error);
-      });
-  }
+    .then((data) => {
+      if (data.is_admin) {
+        document.getElementById("adminButton").style.display = "block";
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking admin access:", error);
+    });
+
 }
 
 function logout() {
-  const jwtToken = getCookie("access_token");
+  const jwtToken = localStorage.getItem("access_token");
   console.log(jwtToken)
   if (jwtToken) {
     // Send a request to your server to validate the token
@@ -217,19 +156,4 @@ function redirectToAdminDashboard() {
 
 function redirectToRegister() {
   window.location.href = "../html/registration.html";
-}
-
-// Function to get the value of a specific cookie by name
-function getCookie(name) {
-  console.log("requested cookie name:", name)
-  const cookies = document.cookie.split(';');
-  console.log("cookies:", cookies)
-  for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split('=').map(c => c.trim());
-      console.log("cookie name", cookieName)
-      if (cookieName === name) {
-          return decodeURIComponent(cookieValue);
-      }
-  }
-  return null;
 }
