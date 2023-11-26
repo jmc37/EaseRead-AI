@@ -22,32 +22,73 @@ const access_token = loginStrings.accessToken;
 const document_cookie = loginStrings.documentCookie;
 
 
+// function login(event) {
+//   event.preventDefault();
+//   console.log(login_route);
+
+//   let username = document.getElementById("username").value;
+//   let password = document.getElementById("password").value;
+
+//   // Validate username format (ensure it's not empty)
+//   if (!username.trim()) {
+//     alert(empty_username);
+//     return;
+//   }
+
+
+//   if (!password) {
+//     alert(valid_password);
+//     return;
+//   }
+
+//   let data = {
+//     username: username,
+//     password: password,
+//   };
+
+//   fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
+//     method: post_method,
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(data),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error(`${http_error}${response.status}`);
+//       }
+//       // return response.json();
+//     })
+//     .then((responseData) => {
+//       if (responseData && responseData.access_token) {
+//         console.log("response.aceestoken:" ,responseData.access_token)
+//         // Set the token as an HTTP cookie
+//         document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
+
+//         // Redirect to userdashboard.html
+//         window.location.href = "../html/userDashboard.html";
+//       } else {
+//         console.error(token_error);
+//       }
+//       // Redirect to userDashboard.html on a successful server response
+//       window.location.href = "../html/userDashboard.html";
+//     })
+//     .catch((error) => {
+//       console.error(login_error, error);
+//     });
+// }
 function login(event) {
   event.preventDefault();
-  console.log(login_route);
 
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
-
-  // Validate username format (ensure it's not empty)
-  if (!username.trim()) {
-    alert(empty_username);
-    return;
-  }
-
-
-  if (!password) {
-    alert(valid_password);
-    return;
-  }
 
   let data = {
     username: username,
     password: password,
   };
-
-  fetch(login_route, {
-    method: post_method,
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -55,9 +96,9 @@ function login(event) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`${http_error}${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      // return response.json();
+      return response.json();
     })
     .then((responseData) => {
       if (responseData && responseData.access_token) {
@@ -67,15 +108,15 @@ function login(event) {
         // Redirect to userdashboard.html
         window.location.href = "../html/userDashboard.html";
       } else {
-        console.error(token_error);
+        console.error("Token not received in the server response");
       }
-      // Redirect to userDashboard.html on a successful server response
-      window.location.href = "../html/userDashboard.html";
     })
     .catch((error) => {
-      console.error(login_error, error);
+      console.error("Error during login", error);
+      // Handle login error, e.g., show an error message
     });
 }
+
 
 function checkAdminAccess() {
   const jwtToken = getCookie("access_token");
