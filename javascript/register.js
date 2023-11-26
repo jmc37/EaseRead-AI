@@ -20,7 +20,7 @@ const regex = registerStrings.regex;
 
 function registerUser(event) {
   event.preventDefault();
-
+  
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
   let name = document.getElementById("name").value;
@@ -57,7 +57,7 @@ function registerUser(event) {
     email: email,
     password: password,
   };
-
+  console.log(register_route)
   // Make an API call to register the user
   fetch(register_route, {
     method: post_method,
