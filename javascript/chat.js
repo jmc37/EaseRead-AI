@@ -39,7 +39,9 @@ window.addEventListener(load, function () {
     console.log("Checking admin access")
     checkAdminAccess();
 });
-
+function redirectToAdminDashboard() {
+    window.location.href = "../html/adminDashboard.html";
+  }
 async function submitForm(event) {
     event.preventDefault();
     console.log("Form was submitted");
