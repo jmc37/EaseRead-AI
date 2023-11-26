@@ -98,7 +98,7 @@ function login(event) {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json();
+      // return response.json();
     })
     .then((responseData) => {
       if (responseData && responseData.access_token) {
