@@ -107,7 +107,7 @@ function login(event) {
         document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
 
         // Redirect to userdashboard.html
-        window.location.href = "../html/userDashboard.html";
+        // window.location.href = "../html/userDashboard.html";
       } else {
         console.error("Token not received in the server response");
       }
