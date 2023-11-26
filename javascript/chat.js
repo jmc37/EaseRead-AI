@@ -45,13 +45,7 @@ function checkAdminAccess() {
     return Promise.resolve();
   }
   
-  window.addEventListener(load, function () {
-    console.log("Checking admin access");
-    checkAdminAccess().then(() => {
-      // Additional logic after the admin access check is completed
-    });
-  });
-  
+
 
 window.addEventListener(load, function () {
     console.log("Checking admin access")
