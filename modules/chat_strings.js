@@ -1,6 +1,7 @@
 const chatStrings = {
     apiRoutes: {
         chat: "https://easeread-ai-backend.onrender.com/API/v1/chat",
+        logout: "https://easeread-ai-backend.onrender.com/API/v1/logout",
     },
     messages: {
         processingError: "Error during processing: "

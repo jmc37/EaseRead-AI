@@ -1,7 +1,8 @@
 const adminDashboardStrings = {
     apiRoutes: {
         allUsers: "https://easeread-ai-backend.onrender.com/API/v1/users",
-        singleUser: "https://easeread-ai-backend.onrender.com/API/v1/user/"
+        singleUser: "https://easeread-ai-backend.onrender.com/API/v1/user/",
+        logout: "https://easeread-ai-backend.onrender.com/API/v1/logout",
     },
     messages: {
         httpError: "HTTP error! Status: ",

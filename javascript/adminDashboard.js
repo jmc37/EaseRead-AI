@@ -1,5 +1,6 @@
 const all_users = adminDashboardStrings.apiRoutes.allUsers;
 const single_user = adminDashboardStrings.apiRoutes.singleUser;
+const logout_route = adminDashboardStrings.apiRoutes.logout;
 
 const http_error = adminDashboardStrings.messages.httpError;
 const user_list_error = adminDashboardStrings.messages.userListError;

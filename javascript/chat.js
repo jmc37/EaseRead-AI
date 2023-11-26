@@ -1,5 +1,5 @@
 const chat_route = chatStrings.apiRoutes.chat;
-
+const logout_route = chatStrings.apiRoutes.logout;
 const processing_error = chatStrings.messages.processingError;
 
 const load = chatStrings.load;
