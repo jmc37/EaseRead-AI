@@ -32,9 +32,6 @@ function checkAdminAccess() {
       });
   
   }
-
-
-
 window.addEventListener(load, function () {
     console.log("Checking admin access")
     checkAdminAccess();
@@ -109,7 +106,7 @@ function logout() {
           console.log(logoutSuccess, data);
   
           // Delete the token cookie
-          document.cookie = document_cookie;
+          localStorage.removeItem("access_token")
           window.location.href = "../index.html";
         })
         .catch((error) => {
