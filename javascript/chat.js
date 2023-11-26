@@ -14,7 +14,7 @@ function getCookie(name) {
 
 function checkAdminAccess() {
   const jwtToken = getCookie("access_token");
-
+    console.log("jwt token", jwtToken)
   if (jwtToken) {
     // Send a request to your server to validate the token
     fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
@@ -41,9 +41,10 @@ function checkAdminAccess() {
   }
 }
 
-// window.addEventListener(load, function () {
-//     checkAdminAccess();
-// });
+window.addEventListener(load, function () {
+    console.log("Checking admin access")
+    checkAdminAccess();
+});
 
 async function submitForm(event) {
   event.preventDefault();
@@ -89,4 +90,3 @@ async function submitForm(event) {
     // Handle processing error, e.g., show an error message
   }
 }
-console.log("docuemtn cookie: ", document.cookie);
