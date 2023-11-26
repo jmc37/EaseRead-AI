@@ -10,6 +10,7 @@ const adminDashboardStrings = {
         adminError: "Error making user admin: ",
         adminRemovError: "Error removing admin status from user: ",
         deletingUserError: "Error deleting user: ",
+        logoutSuccess: "Logout successful:",
 
     },
     methods: {

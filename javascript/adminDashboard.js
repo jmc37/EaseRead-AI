@@ -7,6 +7,7 @@ const user_list_error = adminDashboardStrings.messages.userListError;
 const admin_error = adminDashboardStrings.messages.adminError;
 const admin_remove_error = adminDashboardStrings.messages.adminRemovError;
 const deleting_user_error = adminDashboardStrings.messages.deletingUserError;
+const logoutSuccess = adminDashboardStrings.messages.logoutSuccess;
 
 const get_method = adminDashboardStrings.methods.get;
 const put_method = adminDashboardStrings.methods.put;
@@ -194,7 +195,7 @@ function logout() {
         console.log(logoutSuccess, data);
 
         // Delete the token cookie
-        document.cookie = document_cookie;
+        localStorage.removeItem("access_token")
         window.location.href = "../index.html";
       })
       .catch((error) => {
