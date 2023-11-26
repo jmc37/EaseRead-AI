@@ -91,7 +91,7 @@ function makeAdmin(userId) {
       method: put_method,
       headers: {
         Authorization: `${bearer} ${jwtToken}`,
-        content_type: application_json,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
@@ -122,7 +122,7 @@ function removeAdmin(userId) {
       method: patch_method,
       headers: {
         Authorization: `${bearer} ${jwtToken}`,
-        content_type: application_json,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
@@ -151,7 +151,7 @@ function deleteUser(userId) {
       method: delete_method,
       headers: {
         Authorization: `${bearer} ${jwtToken}`,
-        content_type: application_json,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
