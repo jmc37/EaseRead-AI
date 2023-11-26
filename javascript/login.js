@@ -102,12 +102,14 @@ function login(event) {
     })
     .then((responseData) => {
       if (responseData && responseData.access_token) {
-        console.log("Response Data:", responseData);
-        // Set the token as an HTTP cookie
-        document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
-        console.log(document.cookie)
-        // Redirect to userdashboard.html
-        // window.location.href = "../html/userDashboard.html";
+        const accessToken = responseData.access_token;
+        console.log("Access Token:", accessToken);
+
+        // Set the access token as an HTTP cookie
+        document.cookie = `access_token=${accessToken}; Secure; HttpOnly; path=/`;
+
+        console.log(document.cookie);
+
       } else {
         console.error("Token not received in the server response");
       }
