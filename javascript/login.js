@@ -33,9 +33,9 @@ function login(event) {
     return;
   }
 
-  // Validate password format
-  if (!password || password.length < 8) {
-    alert(valid_password);
+
+  if (!password) {
+    alert("Please enter a valid password");
     return;
   }
 
@@ -67,11 +67,14 @@ function login(event) {
       } else {
         console.error(token_error);
       }
+      // Redirect to userDashboard.html on a successful server response
+      window.location.href = "../html/userDashboard.html";
     })
     .catch((error) => {
       console.error(login_error, error);
     });
 }
+
 function checkAdminAccess() {
   const jwtToken = getCookie(access_token);
 

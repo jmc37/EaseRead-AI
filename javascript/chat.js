@@ -56,3 +56,4 @@ async function submitForm(event) {
         // Handle processing error, e.g., show an error message
     }
 }
+console.log(document.cookie)
