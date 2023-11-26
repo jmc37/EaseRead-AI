@@ -6,7 +6,7 @@ const loginStrings = {
     },
     messages: {
         emptyUsername: "Please enter a valid username. It must not be empty.",
-        validPassword: "Please enter a valid password with at least 8 characters.",
+        validPassword: "Please enter a valid password.",
         httpError: "HTTP error! Status: ",
         tokenError: "Token not received in the server response",
         loginError: "Error during login:",

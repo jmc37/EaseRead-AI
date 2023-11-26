@@ -5,7 +5,7 @@ const registerStrings = {
     messages: {
         httpError: "HTTP error! Status: ",
         emailError: "Please enter a valid email address.",
-        passwordError: "Please enter a password with at least 8 characters.",
+        passwordError: "Please enter a password.",
         usernameError: "Please enter a valid username. Username must not be empty.",
         nameError: "Please enter a valid name. Name must not be empty.",
         error: "Error:",

@@ -31,7 +31,7 @@ function registerUser(event) {
   }
 
   // Validate password length
-  if (!password || password.length < 8) {
+  if (!password) {
     alert(password_error);
     return;
   }
