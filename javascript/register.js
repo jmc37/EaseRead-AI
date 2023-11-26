@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const register_route = registerStrings.apiRoutes.register;
 
 const http_error = registerStrings.messages.httpError;
@@ -17,7 +19,6 @@ const regex = registerStrings.regex;
 
 function registerUser(event) {
   event.preventDefault();
-  console.log(register_route);
 
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
@@ -74,7 +75,9 @@ function registerUser(event) {
       window.location.href = "../index.html";
     })
     .catch((error) => {
+      console.log(response)
       console.error(error_message, error);
+    
 
       // Display an error message to the user
       if (error instanceof TypeError && error.message === "Failed to fetch") {
