@@ -5,9 +5,9 @@ const processing_error = chatStrings.messages.processingError;
 const load = chatStrings.load;
 const loading_wheel = chatStrings.bigHTML;
 
-window.addEventListener(load, function () {
-    checkAdminAccess();
-});
+// window.addEventListener(load, function () {
+//     checkAdminAccess();
+// });
 
 async function submitForm(event) {
     event.preventDefault();
