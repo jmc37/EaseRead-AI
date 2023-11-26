@@ -109,7 +109,8 @@ function login(event) {
         document.cookie = `access_token=${accessToken}; Secure; HttpOnly; path=/`;
 
         console.log(document.cookie);
-
+        // Redirect to userdashboard.html
+        window.location.href = "../html/userDashboard.html";
       } else {
         console.error("Token not received in the server response");
       }
