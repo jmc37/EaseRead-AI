@@ -36,7 +36,7 @@ function getUsersList() {
       method: get_method,
       headers: {
         Authorization: `${bearer} ${jwtToken}`,
-        content_type: application_json,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
