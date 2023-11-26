@@ -27,7 +27,7 @@ const bearer = adminDashboardStrings.bearer;
 
 function getUsersList() {
   // Retrieve the JWT token from cookies
-  const jwtToken = getCookie(access_token);
+  const jwtToken = localStorage.getItem("access_token");
 
   // Check if the token is present
   if (jwtToken) {
@@ -58,11 +58,8 @@ function getUsersList() {
 // Rest of the code remains unchanged
 
 // Function to get the value of a cookie by name
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-  
+function displayUsers(users) {
+  const usersListContainer = document.getElementById('usersList');
   // Create an HTML list to display the users
   const userListHTML =
     "<ul>" +
@@ -147,7 +144,6 @@ function removeAdmin(userId) {
 function deleteUser(userId) {
   // Retrieve the JWT token from localStorage
   const jwtToken = localStorage.getItem(access_token);
-
   // Check if the token is present
   if (jwtToken) {
     // Send a request to your server to delete the user
