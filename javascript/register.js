@@ -62,7 +62,7 @@ function registerUser(event) {
   fetch(register_route, {
     method: post_method,
     headers: {
-      content_type: application_json,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   })
@@ -83,7 +83,7 @@ function registerUser(event) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {
         alert(server_error);
       } else {
-        alert(registerError);
+        alert(register_error);
       }
     });
 }
