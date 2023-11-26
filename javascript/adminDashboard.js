@@ -12,6 +12,7 @@ const get_method = adminDashboardStrings.methods.get;
 const put_method = adminDashboardStrings.methods.put;
 const patch_method = adminDashboardStrings.methods.patch;
 const delete_method = adminDashboardStrings.methods.delete;
+const post_method = adminDashboardStrings.methods.post;
 
 const admin_text = adminDashboardStrings.userListItem.adminText;
 const yes_text = adminDashboardStrings.userListItem.yes;

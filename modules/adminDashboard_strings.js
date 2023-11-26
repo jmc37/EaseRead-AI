@@ -17,6 +17,7 @@ const adminDashboardStrings = {
         put: "PUT",
         patch: "PATCH",
         delete: "DELETE",
+        post: "POST"
     },
     userListItem: {
         adminText: " - Admin: ",
