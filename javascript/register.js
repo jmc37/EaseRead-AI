@@ -1,4 +1,4 @@
-import { response } from "express";
+// import { response } from "express";
 
 
 const register_route = registerStrings.apiRoutes.register;
