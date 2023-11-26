@@ -13,6 +13,7 @@ const loginStrings = {
         adminError: "Error checking admin access:",
         logoutError: "Error logging out:",
         jwtError: "No JWT token found for logout",
+        logoutSuccess: "Logout successful:",
     },
     methods: {
         get: "GET",

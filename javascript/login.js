@@ -10,6 +10,7 @@ const login_error = loginStrings.messages.loginError;
 const admin_error = loginStrings.messages.adminError;
 const logout_error = loginStrings.messages.logoutError;
 const jwt_error = loginStrings.messages.jwtError;
+const logoutSuccess = loginStrings.messages.logoutSuccess;
 
 const get_method = loginStrings.methods.get;
 const post_method = loginStrings.methods.post;
@@ -35,7 +36,7 @@ function login(event) {
 
 
   if (!password) {
-    alert("Please enter a valid password");
+    alert(valid_password);
     return;
   }
 
@@ -122,7 +123,7 @@ function logout() {
         return response.json();
       })
       .then((data) => {
-        console.log("Logout successful:", data);
+        console.log(logoutSuccess, data);
 
         // Delete the token cookie
         document.cookie = document_cookie;
