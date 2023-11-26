@@ -105,7 +105,7 @@ function login(event) {
         console.log("Response Data:", responseData);
         // Set the token as an HTTP cookie
         document.cookie = `access_token=${responseData.access_token}; Secure; HttpOnly`;
-
+        console.log(document.cookie)
         // Redirect to userdashboard.html
         // window.location.href = "../html/userDashboard.html";
       } else {
