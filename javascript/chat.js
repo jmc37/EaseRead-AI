@@ -92,7 +92,7 @@ function logout() {
       fetch(logout_route, {
         method: "POST",
         headers: {
-          Authorization: `${bearer} ${jwtToken}`,
+          Authorization: `Bearer ${jwtToken}`,
           "Content-Type": "application/json",
         },
       })
