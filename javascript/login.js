@@ -104,11 +104,11 @@ function login(event) {
       if (responseData && responseData.access_token) {
         const accessToken = responseData.access_token;
         console.log("Access Token:", accessToken);
-
+        // Access the access_token cookie
+        const accessCookie = getCookie('access_token');
+        console.log('cookie:', accessCookie);
         // Set the access token as an HTTP cookie
         // document.cookie = `access_token=${accessToken}; Secure; HttpOnly; path=/`;
-
-        console.log(document.cookie);
         // Redirect to userdashboard.html
         // window.location.href = "../html/userDashboard.html";
       } else {
@@ -222,9 +222,14 @@ function redirectToRegister() {
   window.location.href = "../html/registration.html";
 }
 
-// Function to get the value of a cookie by name
+// Function to get the value of a specific cookie by name
 function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split('=').map(c => c.trim());
+      if (cookieName === name) {
+          return decodeURIComponent(cookieValue);
+      }
+  }
+  return null;
 }
