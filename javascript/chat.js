@@ -13,33 +13,45 @@ function getCookie(name) {
 }
 
 function checkAdminAccess() {
-  const jwtToken = getCookie("access_token");
-    console.log("jwt token", jwtToken)
-  if (jwtToken) {
-    // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
+    const jwtToken = getCookie("access_token");
+    console.log("jwt token", jwtToken);
+  
+    if (jwtToken) {
+      // Send a request to your server to validate the token
+      return fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+          "Content-Type": "application/json",
+        },
       })
-      .then((data) => {
-        if (data.is_admin) {
-          document.getElementById("adminButton").style.display = "block";
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking admin access:", error);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.is_admin) {
+            document.getElementById("adminButton").style.display = "block";
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking admin access:", error);
+        });
+    }
+  
+    // If there is no token, return a resolved promise
+    return Promise.resolve();
   }
-}
+  
+  window.addEventListener(load, function () {
+    console.log("Checking admin access");
+    checkAdminAccess().then(() => {
+      // Additional logic after the admin access check is completed
+    });
+  });
+  
 
 window.addEventListener(load, function () {
     console.log("Checking admin access")
