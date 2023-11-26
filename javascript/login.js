@@ -106,7 +106,7 @@ function login(event) {
         console.log("Access Token:", accessToken);
 
         // Set the access token as an HTTP cookie
-        document.cookie = `access_token=${accessToken}; Secure; HttpOnly; path=/`;
+        // document.cookie = `access_token=${accessToken}; Secure; HttpOnly; path=/`;
 
         console.log(document.cookie);
         // Redirect to userdashboard.html
