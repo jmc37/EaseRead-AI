@@ -57,7 +57,7 @@ function login(event) {
       if (!response.ok) {
         throw new Error(`${http_error}${response.status}`);
       }
-      return response.json();
+      // return response.json();
     })
     .then((responseData) => {
       if (responseData && responseData.access_token) {
