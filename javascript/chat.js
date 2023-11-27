@@ -1,4 +1,3 @@
-const { response } = require("express");
 
 const chat_route = chatStrings.apiRoutes.chat;
 const logout_route = chatStrings.apiRoutes.logout;
@@ -104,15 +103,17 @@ function logout() {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response}`);
         }
+        console.log("response: ", response)
         return response.json(); // This returns a promise
       })
       .then((data) => {
         // Handle the JSON data here
+        console.log("data: ", data)
         localStorage.removeItem("access_token");
         window.location.href = "../index.html";
       })
       .catch((error) => {
-        console.error("Error logging out", response);
+        console.error("Error logging out", error);
       });
   }
 }
