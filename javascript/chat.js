@@ -89,6 +89,7 @@ function logout() {
 
   // Check if the token is present
   if (jwtToken) {
+    console.log("jwt token present, ", jwtToken)
     // Send a request to your server to validate the token
     fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
       method: "POST",
@@ -101,6 +102,7 @@ function logout() {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        console.log("response", response.json())
         return response.json();
       })
       .then((data) => {
