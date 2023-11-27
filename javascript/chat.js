@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const chat_route = chatStrings.apiRoutes.chat;
 const logout_route = chatStrings.apiRoutes.logout;
 const processing_error = chatStrings.messages.processingError;
@@ -110,7 +112,7 @@ function logout() {
         window.location.href = "../index.html";
       })
       .catch((error) => {
-        console.error("Error logging out", error);
+        console.error("Error logging out", response);
       });
   }
 }
