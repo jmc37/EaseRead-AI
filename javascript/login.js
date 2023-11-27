@@ -61,34 +61,6 @@ function login(event) {
 }
 
 
-// function checkAdminAccess() {
-//   const jwtToken = getCookie("access_token");
-
-//   if (jwtToken) {
-//     // Send a request to your server to validate the token
-//     fetch(admin_dashboard_route, {
-//       method: get_method,
-//       headers: {
-//         Authorization: `${bearer} ${jwtToken}`,
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((response) => {
-//         if (!response.ok) {
-//           throw new Error(`${http_error}${response.status}`);
-//         }
-//         return response.json();
-//       })
-//       .then((data) => {
-//         if (data.is_admin) {
-//           document.getElementById("adminButton").style.display = "block";
-//         }
-//       })
-//       .catch((error) => {
-//         console.error(admin_error, error);
-//       });
-//   }
-// }
 
 function checkAdminAccess() {
   const jwtToken = localStorage.getItem("access_token");
@@ -96,6 +68,7 @@ function checkAdminAccess() {
   fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
     method: "GET",
     headers: {
+      credentials: "include",
       Authorization: `Bearer ${jwtToken}`,
       "Content-Type": "application/json",
     },
