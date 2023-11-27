@@ -8,6 +8,7 @@ const admin_error = adminDashboardStrings.messages.adminError;
 const admin_remove_error = adminDashboardStrings.messages.adminRemovError;
 const deleting_user_error = adminDashboardStrings.messages.deletingUserError;
 const logoutSuccess = adminDashboardStrings.messages.logoutSuccess;
+const logout_error = adminDashboardStrings.messages.logoutError;
 
 const get_method = adminDashboardStrings.methods.get;
 const put_method = adminDashboardStrings.methods.put;
