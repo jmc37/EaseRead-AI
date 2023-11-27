@@ -85,34 +85,31 @@ async function submitForm(event) {
 }
 
 function logout() {
-    const jwtToken = localStorage.getItem("access_token");
-    console.log(jwtToken)
-    if (jwtToken) {
-      // Send a request to your server to validate the token
-      fetch(logout_route, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-          "Content-Type": "application/json",
-        },
+  const jwtToken = localStorage.getItem("access_token");
+
+  // Check if the token is present
+  if (jwtToken) {
+    // Send a request to your server to validate the token
+    fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`${http_error}${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(logoutSuccess, data);
-  
-          // Delete the token cookie
-          localStorage.removeItem("access_token")
-          window.location.href = "../index.html";
-        })
-        .catch((error) => {
-          console.error(logout_error, error);
-        });
-    } else {
-      console.error(jwt_error);
-    }
+      .then((data) => {
+        localStorage.removeItem("access_token")
+        window.location.href = "../index.html";
+
+      })
+      .catch((error) => {
+        console.error("Error logging out", error);
+      });
   }
+}
