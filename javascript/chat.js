@@ -86,8 +86,6 @@ async function submitForm(event) {
 
 function logout() {
   const jwtToken = localStorage.getItem("access_token");
-
-  // Check if the token is present
   if (jwtToken) {
     console.log("jwt token present, ", jwtToken)
     // Send a request to your server to validate the token
