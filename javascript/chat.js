@@ -6,33 +6,32 @@ const processing_error = chatStrings.messages.processingError;
 const load = chatStrings.load;
 const loading_wheel = chatStrings.bigHTML;
 
-
 function checkAdminAccess() {
-    const jwtToken = localStorage.getItem("access_token");
-    // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
+  // Send a request to your server to validate the token
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
+    method: "GET",
+    headers: {
+      credentials: "include",
+      Authorization: `Bearer ${jwtToken}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.is_admin) {
-          document.getElementById("adminButton").style.display = "block";
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking admin access:", error);
-      });
-  
-  }
+    .then((data) => {
+      if (data.is_admin) {
+        document.getElementById("adminButton").style.display = "block";
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking admin access:", error);
+    });
+
+}
 window.addEventListener(load, function () {
     console.log("Checking admin access")
     checkAdminAccess();
