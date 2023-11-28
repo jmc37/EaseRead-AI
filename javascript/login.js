@@ -59,65 +59,6 @@ function login(event) {
     });
 }
 
-// function checkAdminAccess() {
-//   const jwtToken = localStorage.getItem("access_token");
-//   // Send a request to your server to validate the token
-//   fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${jwtToken}`,
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! Status: ${response.status}`);
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       if (data.is_admin) {
-//         document.getElementById("adminButton").style.display = "block";
-//       }
-//     })
-//     .catch((error) => {
-//       console.error("Error checking admin access:", error);
-//     });
-// }
-
-// function logout() {
-//   const jwtToken = localStorage.getItem("access_token");
-//   console.log(jwtToken);
-//   if (jwtToken) {
-//     // Send a request to your server to validate the token
-//     fetch(logout_route, {
-//       method: post_method,
-//       headers: {
-//         Authorization: `${bearer} ${jwtToken}`,
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((response) => {
-//         if (!response.ok) {
-//           throw new Error(`${http_error}${response.status}`);
-//         }
-//         return response.json();
-//       })
-//       .then((data) => {
-//         console.log(logoutSuccess, data);
-
-//         // Delete the token cookie
-//         document.cookie = document_cookie;
-//         window.location.href = "../index.html";
-//       })
-//       .catch((error) => {
-//         console.error(logout_error, error);
-//       });
-//   } else {
-//     console.error(jwt_error);
-//   }
-// }
-
 function redirectToAdminDashboard() {
   window.location.href = "../html/adminDashboard.html";
 }

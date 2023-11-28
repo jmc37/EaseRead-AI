@@ -111,55 +111,55 @@ function makeAdmin(userId) {
 
 
 function removeAdmin(userId) {
-    // Send a request to your server to remove admin status from the user
-    fetch(`${single_user}${userId}`, {
-      method: patch_method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
+  // Send a request to your server to remove admin status from the user
+  fetch(`${single_user}${userId}`, {
+    method: patch_method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${http_error}${response.status}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`${http_error}${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data.message);
-        // After removing admin status, refresh the users list
-        getUsersList();
-      })
-      .catch((error) => {
-        console.error(admin_remove_error, error);
-      });
-  }
+    .then((data) => {
+      console.log(data.message);
+      // After removing admin status, refresh the users list
+      getUsersList();
+    })
+    .catch((error) => {
+      console.error(admin_remove_error, error);
+    });
+}
 
 function deleteUser(userId) {
-    // Send a request to your server to delete the user
-    fetch(`${single_user}${userId}`, {
-      method: delete_method,
-      headers: {
+  // Send a request to your server to delete the user
+  fetch(`${single_user}${userId}`, {
+    method: delete_method,
+    headers: {
 
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${http_error}${response.status}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`${http_error}${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data.message);
-        // After deleting the user, refresh the users list
-        getUsersList();
-      })
-      .catch((error) => {
-        console.error(deleting_user_error, error);
-      });
-  
+    .then((data) => {
+      console.log(data.message);
+      // After deleting the user, refresh the users list
+      getUsersList();
+    })
+    .catch((error) => {
+      console.error(deleting_user_error, error);
+    });
+
 }
 function logout() {
 

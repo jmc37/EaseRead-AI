@@ -12,6 +12,8 @@ window.addEventListener(load, function () {
 function redirectToAdminDashboard() {
   window.location.href = "../html/adminDashboard.html";
 }
+
+
 async function submitForm(event) {
   event.preventDefault();
   apiRequests();
@@ -103,32 +105,37 @@ function parseJwt(token) {
 }
 
 function apiRequests() {
-  // Retrieve the username from local storage
-  const jwtToken = localStorage.getItem("access_token");
-  username = parseJwt(jwtToken);
-  if (username) {
-    // Make a request to the API
-    fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${username}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const apiRequestsElement = document.getElementById("apicalls");
-        const currentApiRequests = data.api_requests;
+  // Make a request to the API
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/userRequests", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const apiRequestsElement = document.getElementById("apicalls");
+      const currentApiRequests = data.length > 0 ? data[0].requests : 0;
 
-        // Display the results on the page
-        apiRequestsElement.innerText = `API Requests for ${username}: ${currentApiRequests}`;
+      // Display the results on the page
+      apiRequestsElement.innerText = `API Requests: ${currentApiRequests}`;
 
-        // Check if the number of API requests has reached 20
-        if (currentApiRequests >= 20) {
-          // Display a warning
-          apiRequestsElement.innerHTML +=
-            "<br><span style='color: red;'>Warning: 20 requests reached!</span>";
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-  } else {
-    console.error("Username not found in local storage");
-  }
+      // Check if the number of API requests has reached 20
+      if (currentApiRequests >= 20) {
+        // Display a warning
+        apiRequestsElement.innerHTML +=
+          "<br><span style='color: red;'>Warning: 20 requests reached!</span>";
+      }
+    })
+    .catch((error) => console.error("Error:", error));
 }
+
 
 window.onload = apiRequests();
 //admin access Set was working with ------->
