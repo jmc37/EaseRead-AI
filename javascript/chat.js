@@ -174,7 +174,7 @@ function checkAdminAccess() {
     credentials: "include",
   })
     .then((response) => {
-      console.log("response: ", response.json())
+      console.log("response: ", response)
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
