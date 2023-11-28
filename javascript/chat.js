@@ -12,7 +12,6 @@ function checkAdminAccess() {
     method: "GET",
     headers: {
       credentials: "include",
-      Authorization: `Bearer ${jwtToken}`,
       "Content-Type": "application/json",
     },
   })
@@ -32,6 +31,7 @@ function checkAdminAccess() {
     });
 
 }
+
 window.addEventListener(load, function () {
     console.log("Checking admin access")
     checkAdminAccess();
