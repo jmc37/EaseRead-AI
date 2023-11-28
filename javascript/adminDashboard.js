@@ -19,15 +19,17 @@ const post_method = adminDashboardStrings.methods.post;
 const admin_text = adminDashboardStrings.userListItem.adminText;
 const yes_text = adminDashboardStrings.userListItem.yes;
 const no_text = adminDashboardStrings.userListItem.no;
-const make_admin_button_text = adminDashboardStrings.userListItem.makeAdminButton;
-const remove_admin_button_text = adminDashboardStrings.userListItem.removeAdminButton;
-const delete_user_button_text = adminDashboardStrings.userListItem.deleteUserButton;
+const make_admin_button_text =
+  adminDashboardStrings.userListItem.makeAdminButton;
+const remove_admin_button_text =
+  adminDashboardStrings.userListItem.removeAdminButton;
+const delete_user_button_text =
+  adminDashboardStrings.userListItem.deleteUserButton;
 
 const content_type = adminDashboardStrings.contentType;
 const access_token = adminDashboardStrings.accessToken;
 const application_json = adminDashboardStrings.applicationJSON;
 const bearer = adminDashboardStrings.bearer;
-
 
 function getUsersList() {
   // Retrieve the JWT token from cookies
@@ -63,7 +65,7 @@ function getUsersList() {
 
 // Function to get the value of a cookie by name
 function displayUsers(users) {
-  const usersListContainer = document.getElementById('usersList');
+  const usersListContainer = document.getElementById("usersList");
   // Create an HTML list to display the users
   const userListHTML =
     "<ul>" +
@@ -71,10 +73,18 @@ function displayUsers(users) {
       .map(
         (user) => `
                     <li>
-                    ${user.username}${admin_text}: ${user.admin ? yes_text : no_text}
-                    <button onclick="makeAdmin(${user.id})">${make_admin_button_text}</button>
-                    <button onclick="removeAdmin(${user.id})">${remove_admin_button_text}</button>
-                    <button onclick="deleteUser(${user.id})">${delete_user_button_text}</button>
+                    ${user.username}${admin_text}: ${
+          user.admin ? yes_text : no_text
+        }
+                    <button onclick="makeAdmin(${
+                      user.id
+                    })">${make_admin_button_text}</button>
+                    <button onclick="removeAdmin(${
+                      user.id
+                    })">${remove_admin_button_text}</button>
+                    <button onclick="deleteUser(${
+                      user.id
+                    })">${delete_user_button_text}</button>
                     </li>`
       )
       .join("") +
@@ -176,7 +186,7 @@ function deleteUser(userId) {
 }
 function logout() {
   const jwtToken = localStorage.getItem("access_token");
-  console.log(jwtToken)
+  console.log(jwtToken);
   if (jwtToken) {
     // Send a request to your server to validate the token
     fetch(logout_route, {
@@ -196,7 +206,7 @@ function logout() {
         console.log(logoutSuccess, data);
 
         // Delete the token cookie
-        localStorage.removeItem("access_token")
+        localStorage.removeItem("access_token");
         window.location.href = "../index.html";
       })
       .catch((error) => {
@@ -206,4 +216,54 @@ function logout() {
     console.error(jwt_error);
   }
 }
+// Async function to fetch and populate API data
+async function fetchDataAndPopulateTable() {
+  const jwtToken = localStorage.getItem("access_token");
+
+  try {
+    // Fetch API data from the server
+    const response = await fetch(
+      "https://easeread-ai-backend.onrender.com/API/v1/allapi",
+      {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+
+    // Call the function to populate the table with the retrieved data
+    populateTable(data);
+  } catch (error) {
+    console.error("Error fetching or populating data:", error);
+  }
+}
+
+// Function to dynamically populate the table
+function populateTable(data) {
+  var tableBody = document
+    .getElementById("apiTable")
+    .getElementsByTagName("tbody")[0];
+
+  // Clear existing rows
+  tableBody.innerHTML = "";
+
+  // Loop through the API data and create a row for each entry
+  for (var i = 0; i < data.length; i++) {
+    var row = tableBody.insertRow(i);
+    var cellEndpoint = row.insertCell(0);
+    var cellId = row.insertCell(1);
+    var cellMethod = row.insertCell(2);
+    var cellRequests = row.insertCell(3);
+
+    cellEndpoint.innerHTML = data[i].endpoint;
+    cellId.innerHTML = data[i].id;
+    cellMethod.innerHTML = data[i].method;
+    cellRequests.innerHTML = data[i].requests;
+  }
+}
+
+// Call the asynchronous function to fetch and populate API data
+window.onload = fetchDataAndPopulateTable();
 window.onload = getUsersList();
