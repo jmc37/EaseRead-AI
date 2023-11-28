@@ -47,7 +47,6 @@ function login(event) {
     })
     .then((responseData) => {
       if (responseData && responseData.access_token) {
-        localStorage.setItem("access_token", responseData.access_token);
         window.location.href = "../html/userDashboard.html";
       } else {
         console.error("Token not received in the server response");

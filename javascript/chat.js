@@ -123,7 +123,7 @@ function apiRequests() {
     .then((data) => {
       console.log("data:",data)
       const apiRequestsElement = document.getElementById("apicalls");
-      const currentApiRequests = data.length > 0 ? data[0].requests : 0;
+      const currentApiRequests = data.length > 0 ? data[0].api_requests : 0;
 
       // Display the results on the page
       apiRequestsElement.innerText = `API Requests: ${currentApiRequests}`;
