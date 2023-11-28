@@ -14,6 +14,7 @@ function redirectToAdminDashboard() {
 }
 async function submitForm(event) {
   event.preventDefault();
+  apiRequests();
   console.log("Form was submitted");
   let question = document.getElementById("question").value;
 
@@ -134,26 +135,33 @@ function parseJwt(token) {
 }
 
 function apiRequests() {
-  console.log("Called");
   // Retrieve the username from local storage
   const jwtToken = localStorage.getItem("access_token");
   username = parseJwt(jwtToken);
-  console.log(username);
   if (username) {
     // Make a request to the API
     fetch(`https://easeread-ai-backend.onrender.com/API/v1/user/${username}`)
       .then((response) => response.json())
       .then((data) => {
+        const apiRequestsElement = document.getElementById("apicalls");
+        const currentApiRequests = data.api_requests;
+
         // Display the results on the page
-        document.getElementById(
-          "apicalls"
-        ).innerText = `API Requests for ${username}: ${data.api_requests}`;
+        apiRequestsElement.innerText = `API Requests for ${username}: ${currentApiRequests}`;
+
+        // Check if the number of API requests has reached 20
+        if (currentApiRequests >= 20) {
+          // Display a warning
+          apiRequestsElement.innerHTML +=
+            "<br><span style='color: red;'>Warning: 20 requests reached!</span>";
+        }
       })
       .catch((error) => console.error("Error:", error));
   } else {
     console.error("Username not found in local storage");
   }
 }
+
 window.onload = apiRequests();
 //admin access Set was working with ------->
 // function checkAdminAccess() {
