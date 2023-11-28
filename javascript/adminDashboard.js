@@ -32,34 +32,30 @@ const application_json = adminDashboardStrings.applicationJSON;
 const bearer = adminDashboardStrings.bearer;
 
 function getUsersList() {
-  // Retrieve the JWT token from cookies
-  const jwtToken = localStorage.getItem("access_token");
 
-  // Check if the token is present
-  if (jwtToken) {
-    // Send a request to your server to get the list of users
-    fetch(all_users, {
-      method: get_method,
-      headers: {
-        Authorization: `${bearer} ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
+  // Send a request to your server to get the list of users
+  fetch(all_users, {
+    method: get_method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${http_error}${response.status}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`${http_error}${response.status}`);
-        }
-        return response.json();
-      })
-      .then((users) => {
-        // Display the list of users
-        displayUsers(users);
-      })
-      .catch((error) => {
-        console.error(user_list_error, error);
-      });
-  }
+    .then((users) => {
+      // Display the list of users
+      displayUsers(users);
+    })
+    .catch((error) => {
+      console.error(user_list_error, error);
+    });
 }
+
 
 // Rest of the code remains unchanged
 
