@@ -66,31 +66,32 @@ function getUsersList() {
 // Function to get the value of a cookie by name
 function displayUsers(users) {
   const usersListContainer = document.getElementById("usersList");
-  // Create an HTML list to display the users
+
   const userListHTML =
-    "<ul>" +
+    "<ul class='user-list'>" +
     users
       .map(
         (user) => `
-                    <li>
-                    ${user.username}${admin_text}: ${
+          <li class='user-item'>
+            <span class='username'>${user.username}</span>
+            <span class='admin-status'>${admin_text} ${
           user.admin ? yes_text : no_text
-        }
-                    <button onclick="makeAdmin(${
-                      user.id
-                    })">${make_admin_button_text}</button>
-                    <button onclick="removeAdmin(${
-                      user.id
-                    })">${remove_admin_button_text}</button>
-                    <button onclick="deleteUser(${
-                      user.id
-                    })">${delete_user_button_text}</button>
-                    </li>`
+        }</span>
+            <span class='requests'>Requests: ${user.requests}</span>
+            <button class='admin-button' onclick="makeAdmin(${
+              user.id
+            })">${make_admin_button_text}</button>
+            <button class='admin-button' onclick="removeAdmin(${
+              user.id
+            })">${remove_admin_button_text}</button>
+            <button class='delete-button' onclick="deleteUser(${
+              user.id
+            })">${delete_user_button_text}</button>
+          </li>`
       )
       .join("") +
     "</ul>";
 
-  // Append the HTML list to the container
   usersListContainer.innerHTML = userListHTML;
 }
 
