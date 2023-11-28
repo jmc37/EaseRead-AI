@@ -20,6 +20,7 @@ function redirectToAdminDashboard() {
 async function submitForm(event) {
   event.preventDefault();
   apiRequests();
+  console.log("Form was submitted");
   let question = document.getElementById("question").value;
 
   // Create the request data object with user input
@@ -116,15 +117,15 @@ function apiRequests() {
     credentials: "include",
   })
     .then((response) => {
+      console.log("response: ",response)
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       return response.json();
     })
     .then((data) => {
-      console.log(data)
       const apiRequestsElement = document.getElementById("apicalls");
-      const currentApiRequests = data.length > 0 ? data[0].requests : 0;
+      const currentApiRequests = data.api_requests
 
       // Display the results on the page
       apiRequestsElement.innerText = `API Requests: ${currentApiRequests}`;

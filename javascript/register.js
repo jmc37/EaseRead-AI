@@ -1,6 +1,3 @@
-// import { response } from "express";
-
-
 const register_route = registerStrings.apiRoutes.register;
 
 const http_error = registerStrings.messages.httpError;
