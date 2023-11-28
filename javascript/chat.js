@@ -178,10 +178,10 @@ function checkAdminAccess() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      console.log("response: ", response.json())
       return response.json();
     })
     .then((data) => {
+      console.log("response:", data);
       if (data.is_admin) {
         document.getElementById("adminButton").style.display = "block";
       }
