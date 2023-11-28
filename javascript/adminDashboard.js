@@ -56,9 +56,6 @@ function getUsersList() {
     });
 }
 
-
-// Rest of the code remains unchanged
-
 // Function to get the value of a cookie by name
 function displayUsers(users) {
   const usersListContainer = document.getElementById("usersList");
@@ -88,49 +85,39 @@ function displayUsers(users) {
 }
 
 function makeAdmin(userId) {
-  // Retrieve the JWT token from localStorage
-  const jwtToken = localStorage.getItem(access_token);
-
-  // Check if the token is present
-  if (jwtToken) {
-    // Send a request to your server to make the user an admin
-    fetch(`${single_user}${userId}`, {
-      method: put_method,
-      headers: {
-        Authorization: `${bearer} ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
+  // Send a request to your server to make the user an admin
+  fetch(`${single_user}${userId}`, {
+    method: put_method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${http_error}${response.status}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`${http_error}${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data.message);
-        // After making the user an admin, refresh the users list
-        getUsersList();
-      })
-      .catch((error) => {
-        console.error(admin_error, error);
-      });
-  }
+    .then((data) => {
+      console.log(data.message);
+      // After making the user an admin, refresh the users list
+      getUsersList();
+    })
+    .catch((error) => {
+      console.error(admin_error, error);
+    });
 }
 
-function removeAdmin(userId) {
-  // Retrieve the JWT token from localStorage
-  const jwtToken = localStorage.getItem(access_token);
 
-  // Check if the token is present
-  if (jwtToken) {
+function removeAdmin(userId) {
     // Send a request to your server to remove admin status from the user
     fetch(`${single_user}${userId}`, {
       method: patch_method,
       headers: {
-        Authorization: `${bearer} ${jwtToken}`,
         "Content-Type": "application/json",
       },
+      credentials: "include",
     })
       .then((response) => {
         if (!response.ok) {
@@ -147,19 +134,16 @@ function removeAdmin(userId) {
         console.error(admin_remove_error, error);
       });
   }
-}
+
 function deleteUser(userId) {
-  // Retrieve the JWT token from localStorage
-  const jwtToken = localStorage.getItem(access_token);
-  // Check if the token is present
-  if (jwtToken) {
     // Send a request to your server to delete the user
     fetch(`${single_user}${userId}`, {
       method: delete_method,
       headers: {
-        Authorization: `${bearer} ${jwtToken}`,
+
         "Content-Type": "application/json",
       },
+      credentials: "include",
     })
       .then((response) => {
         if (!response.ok) {
@@ -175,7 +159,7 @@ function deleteUser(userId) {
       .catch((error) => {
         console.error(deleting_user_error, error);
       });
-  }
+  
 }
 function logout() {
 
@@ -203,7 +187,6 @@ function logout() {
 }
 // Async function to fetch and populate API data
 async function fetchDataAndPopulateTable() {
-  const jwtToken = localStorage.getItem("access_token");
 
   try {
     // Fetch API data from the server
@@ -211,9 +194,9 @@ async function fetchDataAndPopulateTable() {
       "https://easeread-ai-backend.onrender.com/API/v1/allapi",
       {
         headers: {
-          Authorization: `Bearer ${jwtToken}`,
           "Content-Type": "application/json",
         },
+        credentials: "include",
       }
     );
     const data = await response.json();
