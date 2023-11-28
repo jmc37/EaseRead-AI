@@ -16,7 +16,7 @@ function redirectToAdminDashboard() {
 
 async function submitForm(event) {
   event.preventDefault();
-  apiRequests();
+  // apiRequests();
   console.log("Form was submitted");
   let question = document.getElementById("question").value;
 
