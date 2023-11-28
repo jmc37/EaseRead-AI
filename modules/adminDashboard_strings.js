@@ -3,6 +3,7 @@ const adminDashboardStrings = {
         allUsers: "https://easeread-ai-backend.onrender.com/API/v1/users",
         singleUser: "https://easeread-ai-backend.onrender.com/API/v1/user/",
         logout: "https://easeread-ai-backend.onrender.com/API/v1/logout",
+        api: "https://easeread-ai-backend.onrender.com/API/v1/allapi"
     },
     messages: {
         httpError: "HTTP error! Status: ",

@@ -31,8 +31,8 @@ function login(event) {
     username: username,
     password: password,
   };
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/login", {
-    method: "POST",
+  fetch(login_route, {
+    method: post_method,
     headers: {
       "Content-Type": "application/json",
     },

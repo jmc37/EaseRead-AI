@@ -1,6 +1,7 @@
 const all_users = adminDashboardStrings.apiRoutes.allUsers;
 const single_user = adminDashboardStrings.apiRoutes.singleUser;
 const logout_route = adminDashboardStrings.apiRoutes.logout;
+const apiRoutes =adminDashboardStrings.apiRoutes.api
 
 const http_error = adminDashboardStrings.messages.httpError;
 const user_list_error = adminDashboardStrings.messages.userListError;
@@ -163,8 +164,8 @@ function deleteUser(userId) {
 }
 function logout() {
 
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
-    method: "POST",
+  fetch(logout_route, {
+    method: post_method,
     headers: {
       "Content-Type": "application/json",
     },
@@ -191,7 +192,7 @@ async function fetchDataAndPopulateTable() {
   try {
     // Fetch API data from the server
     const response = await fetch(
-      "https://easeread-ai-backend.onrender.com/API/v1/allapi",
+      apiRoutes,
       {
         headers: {
           "Content-Type": "application/json",

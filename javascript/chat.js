@@ -1,8 +1,11 @@
 const chat_route = chatStrings.apiRoutes.chat;
 const logout_route = chatStrings.apiRoutes.logout;
 const processing_error = chatStrings.messages.processingError;
-
+const api_route = chatStrings.apiRoutes.api
+const admin_access = chatStrings.apiRoutes.admin_access
 const load = chatStrings.load;
+const GET = chatStrings.methods.get
+const POST = chatStrings.methods.post
 const loading_wheel = chatStrings.bigHTML;
 
 window.addEventListener(load, function () {
@@ -17,7 +20,6 @@ function redirectToAdminDashboard() {
 async function submitForm(event) {
   event.preventDefault();
   apiRequests();
-  console.log("Form was submitted");
   let question = document.getElementById("question").value;
 
   // Create the request data object with user input
@@ -32,7 +34,7 @@ async function submitForm(event) {
     console.log("sending req");
     // Make the POST request to your Flask backend
     const response = await fetch(chat_route, {
-      method: "POST",
+      method: POST,
       headers: {
         "Content-Type": "application/json",
       },
@@ -62,8 +64,8 @@ async function submitForm(event) {
 
 function logout() {
 
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
-    method: "POST",
+  fetch(logout_route, {
+    method: POST,
     headers: {
       "Content-Type": "application/json",
     },
@@ -106,8 +108,8 @@ function parseJwt(token) {
 
 function apiRequests() {
   // Make a request to the API
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/userRequests", {
-    method: "GET",
+  fetch(api_route, {
+    method: GET,
     headers: {
       "Content-Type": "application/json",
     },
@@ -120,6 +122,7 @@ function apiRequests() {
       return response.json();
     })
     .then((data) => {
+      console.log(data)
       const apiRequestsElement = document.getElementById("apicalls");
       const currentApiRequests = data.length > 0 ? data[0].requests : 0;
 
@@ -141,8 +144,8 @@ window.onload = apiRequests();
 //admin access Set was working with ------->
 function checkAdminAccess() {
   // Send a request to your server to validate the token
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-    method: "GET",
+  fetch(admin_access, {
+    method: GET,
     headers: {
       "Content-Type": "application/json",
     },

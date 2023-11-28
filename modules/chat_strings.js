@@ -2,12 +2,15 @@ const chatStrings = {
     apiRoutes: {
         chat: "https://easeread-ai-backend.onrender.com/API/v1/chat",
         logout: "https://easeread-ai-backend.onrender.com/API/v1/logout",
+        api: "https://easeread-ai-backend.onrender.com/API/v1/userRequests",
+        admin_access: "https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard"
     },
     messages: {
         processingError: "Error during processing: "
     },
     methods: {
         post: "POST",
+        get: "GET"
     },
     load: "load",
     contentType: "Content-Type",
