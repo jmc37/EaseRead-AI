@@ -6,32 +6,6 @@ const processing_error = chatStrings.messages.processingError;
 const load = chatStrings.load;
 const loading_wheel = chatStrings.bigHTML;
 
-function checkAdminAccess() {
-  // Send a request to your server to validate the token
-  fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-    method: "GET",
-    headers: {
-      credentials: "include",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      console.log("response: ", response.json())
-      return response.json();
-    })
-    .then((data) => {
-      if (data.is_admin) {
-        document.getElementById("adminButton").style.display = "block";
-      }
-    })
-    .catch((error) => {
-      console.error("Error checking admin access:", error);
-    });
-
-}
 
 window.addEventListener(load, function () {
     console.log("Checking admin access")
@@ -117,3 +91,57 @@ function logout() {
       });
   }
 }
+function checkAdminAccess() {
+  const jwtToken = localStorage.getItem("access_token");
+  // Send a request to your server to validate the token
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${jwtToken}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.is_admin) {
+        document.getElementById("adminButton").style.display = "block";
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking admin access:", error);
+    });
+
+}
+
+//admin access Set was working with ------->
+// function checkAdminAccess() {
+//   // Send a request to your server to validate the token
+//   fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
+//     method: "GET",
+//     headers: {
+//       credentials: "include",
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error(`HTTP error! Status: ${response.status}`);
+//       }
+//       console.log("response: ", response.json())
+//       return response.json();
+//     })
+//     .then((data) => {
+//       if (data.is_admin) {
+//         document.getElementById("adminButton").style.display = "block";
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error checking admin access:", error);
+//     });
+
+// }

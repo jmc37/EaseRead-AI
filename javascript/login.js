@@ -63,11 +63,12 @@ function login(event) {
 
 
 function checkAdminAccess() {
+  const jwtToken = localStorage.getItem("access_token");
   // Send a request to your server to validate the token
   fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
     method: "GET",
     headers: {
-      credentials: "include",
+      Authorization: `Bearer ${jwtToken}`,
       "Content-Type": "application/json",
     },
   })
