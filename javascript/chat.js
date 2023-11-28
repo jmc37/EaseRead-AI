@@ -19,6 +19,7 @@ function checkAdminAccess() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      console.log("response: ", response.json())
       return response.json();
     })
     .then((data) => {
