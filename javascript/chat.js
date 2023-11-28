@@ -59,62 +59,30 @@ async function submitForm(event) {
 }
 
 function logout() {
-  const jwtToken = localStorage.getItem("access_token");
 
-  // Check if the token is present
-  if (jwtToken) {
-    console.log("jwt token present, ", jwtToken);
-    // Send a request to your server to validate the token
-    fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response}`);
-        }
-        console.log("response: ", response);
-        return response.json(); // This returns a promise
-      })
-      .then((data) => {
-        // Handle the JSON data here
-        console.log("data: ", data);
-        localStorage.removeItem("access_token");
-        window.location.href = "../index.html";
-      })
-      .catch((error) => {
-        console.error("Error logging out", error);
-      });
-  }
+    .then((data) => {
+      // Handle the JSON data here
+      console.log("data: ", data);
+      window.location.href = "../index.html";
+    })
+    .catch((error) => {
+      console.error("Error logging out", error);
+    });
 }
-// function checkAdminAccess() {
-//   const jwtToken = localStorage.getItem("access_token");
-//   // Send a request to your server to validate the token
-//   fetch("https://easeread-ai-backend.onrender.com/API/v1/admin-dashboard", {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${jwtToken}`,
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! Status: ${response.status}`);
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       if (data.is_admin) {
-//         document.getElementById("adminButton").style.display = "block";
-//       }
-//     })
-//     .catch((error) => {
-//       console.error("Error checking admin access:", error);
-//     });
-// }
+
 function parseJwt(token) {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
