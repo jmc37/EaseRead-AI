@@ -120,6 +120,7 @@ function apiRequests() {
       return response.json();
     })
     .then((data) => {
+      console.log("data:",data)
       const apiRequestsElement = document.getElementById("apicalls");
       const currentApiRequests = data.length > 0 ? data[0].requests : 0;
 
