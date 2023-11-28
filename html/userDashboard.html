@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document QA App</title>
-  <!-- Link to external stylesheet -->
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/hamster.css">
-  <script src="../modules/chat_strings.js" defer></script>
-  <!-- <script src="../modules/login_strings.js" defer></script> -->
-  <!-- <script src="../javascript/login.js" defer></script> -->
-  <script src="../javascript/chat.js" defer></script>
-</head>
-<body>
-  <div>
-    <h1 style="color: #f94144;">Document Question Answering</h1>
-  <form onsubmit="submitForm(event)" method="post" enctype="multipart/form-data">
-    <label for="question" style="color: #f3722c;">Enter Your Question:</label>
-    <input type="text" name="question" id="question" required style="border-color: #f8961e;">
-    <br>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document QA App</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/hamster.css" />
+    <script src="../modules/chat_strings.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/dist/index.umd.min.js"></script>
+    <!-- <script src="../modules/login_strings.js" defer></script> -->
+    <!-- <script src="../javascript/login.js" defer></script> -->
+    <script src="../javascript/chat.js" defer></script>
+  </head>
+  <body>
     <div>
-      <button type="submit" style="background-color: #f9c74f;">Get Answer</button>
+      <h1 style="color: #f94144">Document Question Answering</h1>
+      <div id="apicalls"></div>
+      <form
+        onsubmit="submitForm(event)"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label for="question" style="color: #f3722c"
+          >Enter Your Question:</label
+        >
+        <input
+          type="text"
+          name="question"
+          id="question"
+          required
+          style="border-color: #f8961e"
+        />
+        <br />
+        <div>
+          <button type="submit" style="background-color: #f9c74f">
+            Get Answer
+          </button>
+        </div>
+      </form>
+      <button
+        id="adminButton"
+        style="display: none; background-color: #90be6d"
+        onclick="redirectToAdminDashboard()"
+      >
+        Admin Dashboard
+      </button>
+      <button
+        onclick="logout()"
+        style="display: block; background-color: #577590"
+      >
+        Logout
+      </button>
+
+      <br />
+
+      <div id="resultContainer" style="border-color: #f3722c">
+        <h2 style="color: #f8961e">Answer:</h2>
+        <div id="result"></div>
+      </div>
     </div>
-  </form>
-  <button id="adminButton" style="display:none; background-color: #90be6d;" onclick="redirectToAdminDashboard()">Admin Dashboard</button>
-  <button onclick="logout()" style="display: block; background-color: #577590;">Logout</button>
-
-  <br>
-
-  <div id="resultContainer" style="border-color: #f3722c;">
-    <h2 style="color: #f8961e;">Answer:</h2>
-    <div id="result"></div>
-  </div>
-
-  </div>
-</body>
-
+  </body>
 </html>

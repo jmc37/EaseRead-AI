@@ -21,7 +21,6 @@ const bearer = loginStrings.bearer;
 const access_token = loginStrings.accessToken;
 const document_cookie = loginStrings.documentCookie;
 
-
 function login(event) {
   event.preventDefault();
 
@@ -60,8 +59,6 @@ function login(event) {
     });
 }
 
-
-
 function checkAdminAccess() {
   const jwtToken = localStorage.getItem("access_token");
   // Send a request to your server to validate the token
@@ -86,12 +83,11 @@ function checkAdminAccess() {
     .catch((error) => {
       console.error("Error checking admin access:", error);
     });
-
 }
 
 function logout() {
   const jwtToken = localStorage.getItem("access_token");
-  console.log(jwtToken)
+  console.log(jwtToken);
   if (jwtToken) {
     // Send a request to your server to validate the token
     fetch(logout_route, {
@@ -121,7 +117,6 @@ function logout() {
     console.error(jwt_error);
   }
 }
-
 
 function redirectToAdminDashboard() {
   window.location.href = "../html/adminDashboard.html";
