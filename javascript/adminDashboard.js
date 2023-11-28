@@ -74,19 +74,15 @@ function displayUsers(users) {
         (user) => `
           <li class='user-item'>
             <span class='username'>${user.username}</span>
-            <span class='admin-status'>${admin_text} ${
-          user.admin ? yes_text : no_text
-        }</span>
+            <span class='admin-status'>${admin_text} ${user.admin ? yes_text : no_text
+          }</span>
             <span class='requests'>Requests: ${user.requests}</span>
-            <button class='admin-button' onclick="makeAdmin(${
-              user.id
-            })">${make_admin_button_text}</button>
-            <button class='admin-button' onclick="removeAdmin(${
-              user.id
-            })">${remove_admin_button_text}</button>
-            <button class='delete-button' onclick="deleteUser(${
-              user.id
-            })">${delete_user_button_text}</button>
+            <button class='admin-button' onclick="makeAdmin(${user.id
+          })">${make_admin_button_text}</button>
+            <button class='admin-button' onclick="removeAdmin(${user.id
+          })">${remove_admin_button_text}</button>
+            <button class='delete-button' onclick="deleteUser(${user.id
+          })">${delete_user_button_text}</button>
           </li>`
       )
       .join("") +
@@ -186,36 +182,28 @@ function deleteUser(userId) {
   }
 }
 function logout() {
-  const jwtToken = localStorage.getItem("access_token");
-  console.log(jwtToken);
-  if (jwtToken) {
-    // Send a request to your server to validate the token
-    fetch(logout_route, {
-      method: post_method,
-      headers: {
-        Authorization: `${bearer} ${jwtToken}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`${http_error}${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(logoutSuccess, data);
 
-        // Delete the token cookie
-        localStorage.removeItem("access_token");
-        window.location.href = "../index.html";
-      })
-      .catch((error) => {
-        console.error(logout_error, error);
-      });
-  } else {
-    console.error(jwt_error);
-  }
+  fetch("https://easeread-ai-backend.onrender.com/API/v1/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Handle the JSON data here
+      console.log("data: ", data);
+      window.location.href = "../index.html";
+    })
+    .catch((error) => {
+      console.error("Error logging out", error);
+    });
 }
 // Async function to fetch and populate API data
 async function fetchDataAndPopulateTable() {
